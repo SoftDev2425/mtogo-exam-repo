@@ -9,7 +9,8 @@
 
 ## Contributors
 
-...
+- Andreas Fritzbøger: <a href = "mailto:cph-af167@cphbusiness.dk">cph-af167@cphbusiness.dk</a>
+- Owais Dashti: <a href = "mailto:cph-od42@cphbusiness.dk">cph-od42@cphbusiness.dk</a>
 
 ## Introduction
 
