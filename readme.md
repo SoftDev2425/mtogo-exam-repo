@@ -26,8 +26,9 @@ Description for each exam can be found here:
 ...
 
 ## Technology Stack
-
-...
+- NestJS
+- Swagger
+- ...-.-.-
 
 ## ...
 
