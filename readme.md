@@ -12,8 +12,12 @@
 ...
 
 # Introduction
-
 ...
+Description for each exam can be found here:
+- [Systems Integration](./SI/readme.md)
+- [Software Quality](./SQ/readme.md)
+- [Development of Large Scale Systems](./DLS/readme.md)
+
 
 # Setup
 
