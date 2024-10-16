@@ -1,0 +1,36 @@
+name: Pull Request Workflow
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Node Environment
+        uses: ./.github/workflows/shared/node-setup
+
+      # # Step 4 - Run prettier check
+      # - name: Run prettier check
+      #   run: npm run prettier
+
+      # # Step 5 - Run linter
+      # - name: Run linter
+      #   run: npm run lint
+
+      # Step 4 - Run tests
+      # - name: Run tests
+      #   run: npm test
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node Environment
+        uses: ./.github/workflows/shared/node-setup
+
+      # Step 7 - Run build
+      - name: Run build
+        run: npm run build

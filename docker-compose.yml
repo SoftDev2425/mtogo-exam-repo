@@ -1,0 +1,34 @@
+services:
+  postgres_db:
+    container_name: postgres_db
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: mtogo
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: mypassword
+
+  test-service:
+    container_name: test-service
+    build:
+      context: ./TestService
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      POSTGRES_DB: mtogo
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_HOST: postgres_db
+      POSTGRES_PORT: 5432
+    depends_on:
+      - postgres_db
+
+volumes:
+  postgres_data:
+
+networks:
+  default:
+    driver: bridge # Use bridge network for communication between containers
