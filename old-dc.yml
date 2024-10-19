@@ -11,7 +11,9 @@ services:
 
   test-service:
     container_name: test-service
-    image: ghcr.io/softdev2425/testservice:latest
+    build:
+      context: ./TestService
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     environment:
@@ -30,5 +32,6 @@ volumes:
 networks:
   default:
     driver: bridge # Use bridge network for communication between containers
+
 
 ## pull each image from docker hub - services and dependencies
