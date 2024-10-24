@@ -7,8 +7,6 @@ dotenv.config();
 export const app = createServer();
 const port = process.env.PORT || 8000;
 
-console.log("HI ABED");
-
 console.log({
   database: process.env.POSTGRES_DB,
   host: process.env.POSTGRES_HOST,
