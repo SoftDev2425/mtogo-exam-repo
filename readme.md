@@ -1,12 +1,29 @@
 # MTOGO - Exam Repository
 
+```mermaid
+gitGraph
+    commit
+    commit
+    branch develop
+    checkout develop
+    commit
+    commit
+    checkout main
+    merge develop
+    commit
+    commit
+```
+
 ## Table of Contents
 
-- [Contributors](#contributors)
-- [Introduction](#introduction)
-- [Setup](#setup)
-- [Microservices](#microservices)
-- [Technology Stack](#techology-stack)
+- [MTOGO - Exam Repository](#mtogo---exam-repository)
+  - [Table of Contents](#table-of-contents)
+  - [Contributors](#contributors)
+  - [Introduction](#introduction)
+  - [Setup](#setup)
+  - [Microservices](#microservices)
+  - [Technology Stack](#technology-stack)
+  - [...](#)
 
 ## Contributors
 

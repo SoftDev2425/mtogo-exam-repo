@@ -1,21 +1,109 @@
 services:
-  postgres_db:
-    container_name: postgres_db
-    image: postgres:latest
+  # zookeeper and kafka
+  zookeeper:
+    container_name: zookeeper
+    image: wurstmeister/zookeeper:latest
     ports:
-      - "5432:5432"
+      - "2181:2181"
+    networks:
+      - app-network
+
+  kafka:
+    container_name: kafka
+    image: wurstmeister/kafka:latest
+    ports:
+      - "9092:9092"
+      - "9093:9093"
     environment:
-      POSTGRES_DB: testservice
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:9093,OUTSIDE://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_LISTENERS: INSIDE://0.0.0.0:9093,OUTSIDE://0.0.0.0:9092
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    networks:
+      - app-network
+
+  # DATABASES
+  postgres_db:
+    image: postgres:latest
+    container_name: postgres_db
+    environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: mypassword
-
-  test-service:
-    container_name: test-service
-    image: ghcr.io/softdev2425/testservice:latest
+      POSTGRES_DB: testservice
     ports:
-      - "3000:3000"
+      - "5432:5432"
+    volumes:
+      - postgres_db_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  pg_restaurant_service:
+    image: postgres:latest
+    container_name: pg_restaurant_service
     environment:
-      PORT: 3000
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: restaurantservice
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_restaurant_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  pg_auth_service:
+    image: postgres:latest
+    container_name: pg_auth_service
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: authservice
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgres_auth_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  redis_auth_service:
+    container_name: redis_auth_service
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 1s
+      timeout: 3s
+      retries: 30
+
+  # SERVICES
+  restaurant-service:
+    container_name: restaurant-service
+    image: ghcr.io/softdev2425/mtogo-restaurantservice:latest
+    ports:
+      - "3002:3002"
+    environment:
+      PORT: 3002
+      DATABASE_URL: postgresql://user:mypassword@pg_restaurant_service:5432/restaurantservice?schema=public
+      KAFKA_BROKER: kafka:9092it
+      
+      AUTH_SERVICE_URL: http://auth-service:3001
+    depends_on:
+      - pg_restaurant_service
+      - kafka
+    networks:
+      - app-network
+
+  basket-service:
+    container_name: basket-service
+    image: ghcr.io/softdev2425/basketservice:latest
+    ports:
+      - "3005:3005"
+    environment:
+      PORT: 3004
       POSTGRES_DB: testservice
       POSTGRES_USER: user
       POSTGRES_PASSWORD: mypassword
@@ -24,12 +112,82 @@ services:
       DATABASE_URL: postgresql://user:mypassword@postgres_db:5432/testservice?schema=public
     depends_on:
       - postgres_db
+      - kafka
+    networks:
+      - app-network
+
+  order-service:
+    container_name: order-service
+    image: ghcr.io/softdev2425/orderservice:latest
+    ports:
+      - "3003:3003"
+    environment:
+      PORT: 3003
+      POSTGRES_DB: testservice
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_HOST: postgres_db
+      POSTGRES_PORT: 5432
+      DATABASE_URL: postgresql://user:mypassword@postgres_db:5432/testservice?schema=public
+    depends_on:
+      - postgres_db
+      - kafka
+    networks:
+      - app-network
+
+  auth-service:
+    container_name: auth-service
+    image: ghcr.io/softdev2425/mtogo-authservice:latest
+    ports:
+      - "3001:3001"
+    environment:
+      PORT: 3001
+      DATABASE_URL: postgresql://user:mypassword@pg_auth_service:5432/authservice?schema=public
+      LOCATION_IQ_API_KEY: ${LOCATION_IQ_API_KEY}
+      REDIS_URL: redis://redis_auth_service:6379
+    depends_on:
+      - pg_auth_service
+      - redis_auth_service
+      - kafka
+    networks:
+      - app-network
+
+  # API GATEWAY
+  api-gateway:
+    container_name: api-gateway
+    image: ghcr.io/softdev2425/mtogo-api-gateway:latest
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      AUTH_SERVICE_URL: http://auth-service:3001
+      RESTAURANT_SERVICE_URL: http://restaurant-service:3002
+      ORDER_SERVICE_URL: http://order-service:3003
+      BASKET_SERVICE_URL: http://basket-service:3004
+      DELIVERY_SERVICE_URL: http://delivery-service:3006
+    depends_on:
+      - basket-service
+      - order-service
+    networks:
+      - app-network
+
+  client:
+    container_name: client
+    image: ghcr.io/softdev2425/mtogo-client:latest
+    ports:
+      - "3004:3004"
+    environment:
+      VITE_REACT_APP_API_GATEWAY_URL: http://localhost:3000
+    networks:
+      - app-network
 
 volumes:
-  postgres_data:
+  postgres_db_data:
+  postgres_restaurant_data:
+  postgres_auth_data:
 
 networks:
-  default:
+  app-network:
     driver: bridge # Use bridge network for communication between containers
 
 ## pull each image from docker hub - services and dependencies
