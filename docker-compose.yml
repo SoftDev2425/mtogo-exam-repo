@@ -23,6 +23,23 @@ services:
     networks:
       - app-network
 
+  kafka-ui:
+    container_name: kafka-ui
+    image: provectuslabs/kafka-ui:latest
+    ports:
+      - "8080:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: localhost
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
+      KAFKA_CLUSTERS_1_NAME: mtogo-order-service
+      KAFKA_CLUSTERS_1_BOOTSTRAPSERVERS: kafka:9092
+      KAFKA_CLUSTERS_1_ZOOKEEPER: zookeeper:2181
+    depends_on:
+      - kafka
+    networks:
+      - app-network
+
   # DATABASES
   postgres_db:
     image: postgres:latest
@@ -49,6 +66,20 @@ services:
       - "5433:5432"
     volumes:
       - postgres_restaurant_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  pg_order_service:
+    image: postgres:latest
+    container_name: pg_order_service
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: orderservice
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_order_data:/var/lib/postgresql/data
     networks:
       - app-network
 
@@ -89,7 +120,7 @@ services:
       PORT: 3002
       DATABASE_URL: postgresql://user:mypassword@pg_restaurant_service:5432/restaurantservice?schema=public
       KAFKA_BROKER: kafka:9092it
-      
+
       AUTH_SERVICE_URL: http://auth-service:3001
     depends_on:
       - pg_restaurant_service
@@ -97,24 +128,6 @@ services:
     networks:
       - app-network
 
-  basket-service:
-    container_name: basket-service
-    image: ghcr.io/softdev2425/basketservice:latest
-    ports:
-      - "3005:3005"
-    environment:
-      PORT: 3004
-      POSTGRES_DB: testservice
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: mypassword
-      POSTGRES_HOST: postgres_db
-      POSTGRES_PORT: 5432
-      DATABASE_URL: postgresql://user:mypassword@postgres_db:5432/testservice?schema=public
-    depends_on:
-      - postgres_db
-      - kafka
-    networks:
-      - app-network
 
   order-service:
     container_name: order-service
@@ -123,14 +136,12 @@ services:
       - "3003:3003"
     environment:
       PORT: 3003
-      POSTGRES_DB: testservice
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: mypassword
-      POSTGRES_HOST: postgres_db
-      POSTGRES_PORT: 5432
-      DATABASE_URL: postgresql://user:mypassword@postgres_db:5432/testservice?schema=public
+      DATABASE_URL: postgresql://user:mypassword@pg_order_service:5432/orderservice?schema=public
+      KAFKA_BROKER: kafka:9092
+      AUTH_SERVICE_URL: http://auth-service:3001
+      RESTAURANT_SERVICE_URL: http://restaurant-service:3002
     depends_on:
-      - postgres_db
+      - pg_order_service
       - kafka
     networks:
       - app-network
@@ -163,10 +174,9 @@ services:
       AUTH_SERVICE_URL: http://auth-service:3001
       RESTAURANT_SERVICE_URL: http://restaurant-service:3002
       ORDER_SERVICE_URL: http://order-service:3003
-      BASKET_SERVICE_URL: http://basket-service:3004
       DELIVERY_SERVICE_URL: http://delivery-service:3006
+      CLIENT_URL: http://localhost:3006
     depends_on:
-      - basket-service
       - order-service
     networks:
       - app-network
@@ -175,9 +185,9 @@ services:
     container_name: client
     image: ghcr.io/softdev2425/mtogo-client:latest
     ports:
-      - "3004:3004"
+      - "3006:3000"
     environment:
-      VITE_REACT_APP_API_GATEWAY_URL: http://localhost:3000
+      VITE_REACT_APP_API_GATEWAY_URL: http://api-gateway:3000
     networks:
       - app-network
 
@@ -185,6 +195,7 @@ volumes:
   postgres_db_data:
   postgres_restaurant_data:
   postgres_auth_data:
+  postgres_order_data:
 
 networks:
   app-network:
