@@ -241,6 +241,25 @@ services:
     networks:
       - app-network
 
+  notification-service:
+    container_name: notification-service
+    image: ghcr.io/softdev2425/mtogo-notificationservice:latest
+    ports:
+      - "3005:3005"
+    environment:
+      PORT: 3005
+      KAFKA_BROKER: kafka:9092
+      AUTH_SERVICE_URL: http://auth-service:3001
+      EMAIL_USER: ${EMAIL_USER}
+      EMAIL_PASSWORD: ${EMAIL_PASSWORD}
+      EMAIL_HOST: ${EMAIL_HOST}
+      EMAIL_PORT: ${EMAIL_PORT}
+    depends_on:
+      - pg_order_service
+      - kafka
+    networks:
+      - app-network
+
   client:
     container_name: client
     image: ghcr.io/softdev2425/mtogo-client:latest
