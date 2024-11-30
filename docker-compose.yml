@@ -145,8 +145,7 @@ services:
     environment:
       PORT: 3002
       DATABASE_URL: postgresql://user:mypassword@pg_restaurant_service:5432/restaurantservice?schema=public
-      KAFKA_BROKER: kafka:9092it
-
+      KAFKA_BROKER: kafka:9092
       AUTH_SERVICE_URL: http://auth-service:3001
     depends_on:
       - pg_restaurant_service
