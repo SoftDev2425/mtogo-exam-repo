@@ -155,7 +155,7 @@ services:
 
   order-service:
     container_name: order-service
-    image: ghcr.io/softdev2425/orderservice:latest
+    image: ghcr.io/softdev2425/mtogo-orderservice:latest
     ports:
       - "3003:3003"
     environment:
@@ -165,10 +165,11 @@ services:
       AUTH_SERVICE_URL: http://auth-service:3001
       RESTAURANT_SERVICE_URL: http://restaurant-service:3002
       PAYMENT_SERVICE_URL: http://payment-service:3004
-      REDIS_URL: redis://redis_order_service:6379
+      REDIS_HOST: redis_order_service
       REDIS_PORT: 6379
     depends_on:
       - pg_order_service
+      - redis_order_service
       - kafka
     networks:
       - app-network
