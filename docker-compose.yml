@@ -15,7 +15,7 @@ services:
       - "9092:9092"
       - "9093:9093"
     environment:
-      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:9093,OUTSIDE://kafka:9092
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:9093,OUTSIDE://kafka:9092 # REMEMBER TO CHANGE TO: OUTSIDE://kafka:9092 -- local dev: localhost:9092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
       KAFKA_LISTENERS: INSIDE://0.0.0.0:9093,OUTSIDE://0.0.0.0:9092
       KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
@@ -28,18 +28,19 @@ services:
       timeout: 3s
       retries: 30
 
-  # kafka-ui:
-  #   container_name: kafka-ui
-  #   image: provectuslabs/kafka-ui:latest
-  #   ports:
-  #     - "8080:8080"
-  #   environment:
-  #     KAFKA_CLUSTERS_0_NAME: local
-  #     KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
-  #   depends_on:
-  #     - kafka
-  #   networks:
-  #     - app-network
+  kafka-ui:
+    container_name: kafka-ui
+    image: provectuslabs/kafka-ui:latest
+    ports:
+      - "8080:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
+    depends_on:
+      - kafka
+    networks:
+      - app-network
 
   # DATABASES
   postgres_db:
@@ -169,6 +170,7 @@ services:
       PAYMENT_SERVICE_URL: http://payment-service:3004
       REDIS_HOST: redis_order_service
       REDIS_PORT: 6379
+      DELIVERY_SERVICE_URL: http://delivery-service:3006
     depends_on:
       - pg_order_service
       - redis_order_service
@@ -238,6 +240,7 @@ services:
       PORT: 3004
       PAYMENT_SERVICE_URL: http://payment-service:3004
       STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
+      KAFKA_BROKER: kafka:9092
     depends_on:
       - kafka
     networks:
