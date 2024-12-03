@@ -2,15 +2,15 @@
 
 <img src="./imgs/mtogo-platform.png" alt="MTOGO Client" width="100%"/>
 
-## **Contributors**
+## Contributors
 
-- **Andreas Fritzøger** (cph-af167@cphbusiness.dk) [GitHub](https://github.com/)
-- **Owais Dashti** (cph-od42@cphusiness.dk) [GitHub](https://github.com/owaisad)
+- **Andreas Fritzøger** (cph-af167@cphbusiness.dk, [GitHub](https://github.com/Wolfgang1235))
+- **Owais Dashti** (cph-od42@cphusiness.dk, [GitHub](https://github.com/owaisad))
 
 ## Table of Contents
 
 - [MTOGO - Exam Repository](#mtogo---exam-repository)
-  - [**Contributors**](#contributors)
+  - [Contributors](#contributors)
   - [Table of Contents](#table-of-contents)
   - [Setup project instructions](#setup-project-instructions)
   - [About](#about)
@@ -294,10 +294,11 @@ building
 ## Continuous Integration / Continuous Deployment (CI/CD)
 
 master.yml
-
 building docker images
-
-semantic release
+semantic release for versioning
+<img src="./imgs/ghcr.png.png" alt="Semantic Release" width="100%"/>
+<img src="./imgs/semantic_release.png" alt="Semantic Release" width="100%"/>
+<img src="./imgs/semantic_release2.png.png" alt="Semantic Release" width="100%"/>
 
 ## Application Monitoring
 
@@ -311,6 +312,9 @@ INSERT POSTMAN COLLECTION HERE + IMAGES
 ## Docker
 
 These are the docker containers on the MTOGO platform. As a container orchestrator, we use docker compose. Our docker-compose.yml file can be found here [insert link here]
+using watchtower to update containers automatically when a new image is pushed to the registry (GitHub Container Registry).
+Looks for the latest image and updates the container if a new image is available.
+
 REFORMULATE THIS
 
 FIX THE STRUCTURE OF THE DOCKER COMPOSE BEFORE INSERTING IMAGE
