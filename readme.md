@@ -33,8 +33,13 @@
     - [Architecture diagram](#architecture-diagram)
     - [BPMN diagram](#bpmn-diagram)
     - [Domain model](#domain-model)
-    - [Use case diagram](#use-case-diagram)
     - [Domain Driven Design (DDD) models](#domain-driven-design-ddd-models)
+      - [Event Storming: Step 1 - Collecting Domain Events](#event-storming-step-1---collecting-domain-events)
+      - [Event Storming: Step 2 - Refining Domain Events](#event-storming-step-2---refining-domain-events)
+      - [Event Storming: Step 3 - Tracking Causes](#event-storming-step-3---tracking-causes)
+      - [Event Storming: Step 4 - Finding aggregates and re-sorting them](#event-storming-step-4---finding-aggregates-and-re-sorting-them)
+      - [Ubiquitous Language](#ubiquitous-language)
+      - [Bounded Contexts visualized in the Context Map](#bounded-contexts-visualized-in-the-context-map)
     - [C4 Model](#c4-model)
       - [Level 1 - System Context Diagram](#level-1---system-context-diagram)
       - [Level 2 - System Container Diagram](#level-2---system-container-diagram)
@@ -85,6 +90,8 @@ This will take a short moment to build the Docker images and start the container
 ## About
 
 About the project + description for each exam.....
+
+Find out a lot more in the Design and Development Specification document: https://docs.google.com/document/d/1stTdq9irwSUa2SVfKwYDESG2IQfOmqh0mN3Dapf9Sgg/edit?tab=t.0#heading=h.8n6vuq48b6vg
 
 ## Monolithic Legacy system
 
@@ -182,13 +189,23 @@ INSERT ARCHITECTURE DIAGRAM HERE
 
 <img src="https://github.com/SoftDev2425/mtogo-exam-repo/blob/master/imgs/domain_model.png?raw=true" target="_blank" alt="BPM" width="100%"/>
 
-### Use case diagram
-
-<img src="https://github.com/SoftDev2425/mtogo-exam-repo/blob/master/imgs/use-case.png?raw=true" target="_blank" alt="BPM" width="100%"/>
-
 ### Domain Driven Design (DDD) models
 
-INSERT DDD MODELS HERE
+Starting with Event Storming, we can identify the domain events and aggregate roots. This will help us to create the domain models and the C4 model. Strategic and tactical DDD will be used to design the microservices.
+
+Strategic Design:
+
+#### Event Storming: Step 1 - Collecting Domain Events
+
+#### Event Storming: Step 2 - Refining Domain Events
+
+#### Event Storming: Step 3 - Tracking Causes
+
+#### Event Storming: Step 4 - Finding aggregates and re-sorting them
+
+#### Ubiquitous Language
+
+#### Bounded Contexts visualized in the Context Map
 
 ### C4 Model
 
