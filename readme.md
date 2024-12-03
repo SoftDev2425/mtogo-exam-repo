@@ -28,7 +28,6 @@
     - [MTOGO Proto Provider](#mtogo-proto-provider)
     - [MTOGO Client](#mtogo-client)
   - [Technology Stack](#technology-stack)
-    - [..](#)
   - [Architecture \& Design](#architecture--design)
     - [Architecture diagram](#architecture-diagram)
     - [BPMN diagram](#bpmn-diagram)
@@ -45,7 +44,7 @@
       - [Level 2 - System Container Diagram](#level-2---system-container-diagram)
       - [Level 3 - Component Diagram](#level-3---component-diagram)
     - [Testing](#testing)
-  - [...](#-1)
+  - [...](#)
   - [Development of services](#development-of-services)
   - [Continuous Integration / Continuous Deployment (CI/CD)](#continuous-integration--continuous-deployment-cicd)
   - [Application Monitoring](#application-monitoring)
@@ -153,7 +152,7 @@ npm package for proto files for grpc
 ### MTOGO Client
 
 Repository: <a href="https://github.com/SoftDev2425/mtogo-client" target="_blank">mtogo-client</a>
-påbegyndt...
+SPA built with Vite React and TypeScript (available through docker at PORT XXXXXXXXXXX)
 
 ## Technology Stack
 
@@ -173,13 +172,11 @@ påbegyndt...
 - Postman
 - ...-.-.-
 
-### ..
-
 ## Architecture & Design
 
 ### Architecture diagram
 
-INSERT ARCHITECTURE DIAGRAM HERE
+<img src="https://github.com/SoftDev2425/mtogo-exam-repo/blob/master/imgs/arc_diagram.png?raw=true" alt="Microservices" width="100%"/>
 
 ### BPMN diagram
 
@@ -197,11 +194,19 @@ Strategic Design:
 
 #### Event Storming: Step 1 - Collecting Domain Events
 
+<img src="./imgs/event_storming/step1.png" alt="Event Storming: Step 1" width="100%"/>
+
 #### Event Storming: Step 2 - Refining Domain Events
+
+<img src="./imgs/event_storming/step2.png" alt="Event Storming: Step 2" width="100%"/>
 
 #### Event Storming: Step 3 - Tracking Causes
 
+<img src="./imgs/event_storming/step3.png" alt="Event Storming: Step 3" width="100%"/>
+
 #### Event Storming: Step 4 - Finding aggregates and re-sorting them
+
+<img src="./imgs/event_storming/step4.png" alt="Event Storming: Step 4" width="100%"/>
 
 #### Ubiquitous Language
 
