@@ -1,7 +1,7 @@
 #!/bin/bash
 
-echo "Stopping and removing existing Docker Compose services..."
-docker-compose down --volumes --remove-orphans
+echo "Stopping and removing existing Docker Compose services..." # add --volumes if you want to remove data volumes
+docker-compose down --remove-orphans
 
 echo "Services stopped and removed successfully."
 
