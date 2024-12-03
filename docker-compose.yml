@@ -207,7 +207,7 @@ services:
       RESTAURANT_SERVICE_URL: http://restaurant-service:3002
       ORDER_SERVICE_URL: http://order-service:3003
       DELIVERY_SERVICE_URL: http://delivery-service:3006
-      CLIENT_URL: http://localhost:3006
+      CLIENT_URL: http://localhost:5173
     depends_on:
       - order-service
     networks:
@@ -269,9 +269,18 @@ services:
     container_name: client
     image: ghcr.io/softdev2425/mtogo-client:latest
     ports:
-      - "3030:3000"
+      - "5173:5173"
     environment:
-      VITE_REACT_APP_API_GATEWAY_URL: http://api-gateway:3000
+      VITE_REACT_APP_API_GATEWAY_URL: http://localhost:3000
+    networks:
+      - app-network
+
+  watchtower:
+    container_name: watchtower
+    image: containrrr/watchtower:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 30
     networks:
       - app-network
 
