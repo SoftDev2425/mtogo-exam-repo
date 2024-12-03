@@ -1,8 +1,8 @@
 # MTOGO - Exam Repository
 
-![image](https://github.com/SoftDev2425/mtogo-exam-repo/imgs/mtogo-platform.png)
+![image](https://github.com/SoftDev2425/mtogo-exam-repo/blob/master/imgs/mtogo-platform.png?raw=true)
 
-## Contributors
+## **Contributors**
 
 - **Andreas Fritzøger** (cph-af167@cphbusiness.dk) [GitHub](https://github.com/)
 - **Owais Dashti** (cph-od42@cphusiness.dk) [GitHub](https://github.com/owaisad)
@@ -10,11 +10,21 @@
 ## Table of Contents
 
 - [MTOGO - Exam Repository](#mtogo---exam-repository)
-  - [Contributors](#contributors)
+  - [**Contributors**](#contributors)
   - [Table of Contents](#table-of-contents)
+  - [Setup project instructions](#setup-project-instructions)
   - [About](#about)
-  - [Setup](#setup)
-  - [Microservices](#microservices)
+  - [Legacy system](#legacy-system)
+  - [Microservices (Repositories)](#microservices-repositories)
+    - [API Gateway](#api-gateway)
+    - [Auth Service](#auth-service)
+    - [Restaurant Service](#restaurant-service)
+    - [Order Service](#order-service)
+    - [Delivery Service](#delivery-service)
+    - [Notification Service](#notification-service)
+    - [Feedback Service](#feedback-service)
+    - [MTOGO Proto Provider](#mtogo-proto-provider)
+    - [MTOGO Client](#mtogo-client)
   - [Technology Stack](#technology-stack)
     - [..](#)
     - [Testing](#testing)
@@ -22,6 +32,11 @@
   - [Development of services](#development-of-services)
   - [Continuous Integration / Continuous Deployment (CI/CD)](#continuous-integration--continuous-deployment-cicd)
   - [API Documentation](#api-documentation)
+
+## Setup project instructions
+
+.env
+...
 
 ## About
 
@@ -31,14 +46,55 @@ About the project + description for each exam..
 - [Software Quality](./SQ/readme.md)
 - [Development of Large Scale Systems](./DLS/readme.md)
 
-## Setup
+## Legacy system
 
-.env
-...
+strangler pattern
+Repository link
 
-## Microservices
+## Microservices (Repositories)
+
+<img src="https://github.com/SoftDev2425/mtogo-exam-repo/blob/master/imgs/arc_diagram.png?raw=true" alt="Microservices" width="100%"/>
 
 list of microservices with explanation
+
+### API Gateway
+
+Repository link
+
+### Auth Service
+
+Repository link
+
+### Restaurant Service
+
+Repository link
+
+### Order Service
+
+Repository link
+
+### Delivery Service
+
+Repository link
+
+### Notification Service
+
+Repository link
+
+### Feedback Service
+
+Repository link
+
+...
+
+### MTOGO Proto Provider
+
+Repository link
+
+### MTOGO Client
+
+Repository link
+påbegyndt...
 
 ## Technology Stack
 
