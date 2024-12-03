@@ -1,6 +1,6 @@
 # MTOGO - Exam Repository
 
-![image](https://github.com/SoftDev2425/mtogo-exam-repo/blob/master/imgs/mtogo-platform.png?raw=true)
+<img src="./imgs/mtogo-platform.png" alt="MTOGO Client" width="100%"/>
 
 ## **Contributors**
 
@@ -98,7 +98,7 @@ Repository: https://github.com/SoftDev2425/mtogo-legacy
 
 ## Microservices-based Modern System (+ repositories)
 
-<img src="https://github.com/SoftDev2425/mtogo-exam-repo/blob/master/imgs/arc_diagram.png?raw=true" alt="Microservices" width="100%"/>
+<img src="./imgs/arc_diagram.png" alt="Microservices" width="100%"/>
 
 list of microservices with explanation
 
@@ -175,15 +175,15 @@ SPA built with Vite React and TypeScript (available through docker at PORT XXXXX
 
 ### Architecture diagram
 
-<img src="https://github.com/SoftDev2425/mtogo-exam-repo/blob/master/imgs/arc_diagram.png?raw=true" alt="Microservices" width="100%"/>
+<img src="./imgs/arc_diagram.png" alt="Microservices" width="100%"/>
 
 ### BPMN diagram
 
-<img src="https://github.com/SoftDev2425/mtogo-exam-repo/blob/master/imgs/customer-create-order-flow-bpmn.png?raw=true" target="_blank" alt="BPM" width="100%"/>
+<img src="./imgs/customer-create-order-flow-bpmn.png" target="_blank" alt="BPM" width="100%"/>
 
 ### Domain model
 
-<img src="https://github.com/SoftDev2425/mtogo-exam-repo/blob/master/imgs/domain_model.png?raw=true" target="_blank" alt="BPM" width="100%"/>
+<img src="./imgs/domain_model.png" target="_blank" alt="BPM" width="100%"/>
 
 ### Domain Driven Design (DDD) models
 
