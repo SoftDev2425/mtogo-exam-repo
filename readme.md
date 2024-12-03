@@ -110,6 +110,7 @@ express gateway
 rate limiting
 http-proxy
 auth middleware
+sanitize request 
 
 ### Auth Service
 
