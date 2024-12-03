@@ -1,5 +1,7 @@
 # MTOGO - Exam Repository
 
+![image](https://github.com/SoftDev2425/mtogo-exam-repo/imgs/mtogo-platform.png)
+
 ## Contributors
 
 - **Andreas Fritzøger** (cph-af167@cphbusiness.dk) [GitHub](https://github.com/)
@@ -31,6 +33,7 @@ About the project + description for each exam..
 
 ## Setup
 
+.env
 ...
 
 ## Microservices
