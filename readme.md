@@ -44,7 +44,6 @@
       - [Level 2 - System Container Diagram](#level-2---system-container-diagram)
       - [Level 3 - Component Diagram](#level-3---component-diagram)
     - [Testing](#testing)
-  - [...](#)
   - [Development of services](#development-of-services)
   - [Continuous Integration / Continuous Deployment (CI/CD)](#continuous-integration--continuous-deployment-cicd)
   - [Application Monitoring](#application-monitoring)
@@ -210,23 +209,67 @@ Strategic Design:
 
 #### Ubiquitous Language
 
+- Customer: An individual who places orders on MTOGO. Customers may create accounts to store order history and personal preferences.
+- Restaurant: A food provider registered as a partner with MTOGO, offering a selection of dishes to customers through the platform.
+- Menu: A list of food items provided by a restaurant, available to customers for ordering on MTOGO.
+- Order: A transaction initiated by the customer to purchase food items from a restaurant through MTOGO.
+- Delivery Agent: An individual/courier contracted by MTOGO to pick up orders from restaurants and deliver them to customers. Delivery agents are compensated with bonuses based on performance.
+- Payment: The transaction where the customer pays for the order. MTOGO collects the payment, calculates fees, and distributes the remaining revenue to the restaurant.
+- Service Fee: A recurring flat rate fee paid by the restaurant to MTOGO for using the platform.
+- Variable Order Fee: A percentage fee based on the value of each order, deducted by MTOGO before paying the restaurant.
+- Bonus: A payment the delivery agents received based on order value, time of working (early or late), and customer reviews.
+- Feedback: An optional evaluation the customer can provide for the delivery experience, including a description and a rating from 1 to 5 stars, which may influence delivery agent bonuses.
+- Notification: A push notification, SMS, or email sent to the customer each time the order’s status is updated, from preparation to delivery. Notifications also cover delays or issues with the delivery.
+- Dashboard: An online management interface for MTOGO’s admin to monitor order statistics, delivery performance, customer feedback, and restaurant activity.
+- Basket: An online cart where the customer can place and modify pending orders before proceeding to payment. The items are saved temporarily until checkout.
+- MTOGO (Meal TO GO): A food delivery company, who operates the app, where customers can order food from restaurant’s menus.
+
+Key Actions and Events:
+
+- Register Restaurant: The action a restaurant takes to sign up on the MTOGO platform, becoming a partner and gaining access to customers.
+- Add Menu: The action a restaurant takes to upload or update its food items on the MTOGO platform, making them visible to customers.
+- Register Customer: The process by which a customer creates an account on the MTOGO platform to manage order history, preferences, and personal information.
+- Log In: The action taken by a customer to access their MTOGO account.
+- Place Order: The process by which a customer selects items from a restaurant's menu and submits a request to MTOGO. It is not necessary for the customer to be logged in, to place an order
+- Process Payment: The interaction with an external payment gateway to collect payment from the customer for an order. MTOGO holds the payment until fees are deducted, and the remainder is transferred to the restaurant.
+- Accept Order: The restaurant's action of confirming a customer's order, committing to prepare the items listed.
+- Reject Order: The action taken by a restaurant to decline an order, usually due to item unavailability or excess demand.
+- Prepare Order: The process the restaurant undertakes to cook and package food items for a placed order.
+- Assign Delivery Agent: MTOGOs action to find an available delivery agent for an accepted and prepared order.
+- Pick Up Order: The delivery agent's action of collecting the prepared order from the restaurant.
+- Notify Order Status: Updates sent by MTOGO to the customer regarding the orders progress, such as preparation, pickup, transit, delivery and any delays or issues encountered.
+- Deliver Order: The action taken by the delivery agent to hand over the order to the customer.
+- Request Feedback: MTOGOs action of sending a prompt to the customer after delivery, asking for a review of their experience.
+- Submit Feedback: The customer's response to the feedback request, including ratings and comments on the restaurant, food, and delivery experience.
+- Calculate Fees: The process by which MTOGO deducts a service fee and variable order fee from the orders total revenue before transferring the remainder to the restaurant.
+- Calculate and Pay Bonus: The process by which MTOGO calculates and distributes a bonus to the delivery agent, based on metrics such as order value and customer feedback.
+- Update Dashboard: The action of updating the MTOGO management interface.
+
 #### Bounded Contexts visualized in the Context Map
+
+<img src="./imgs/context_map.png" alt="Context Map" width="100%"/>
 
 ### C4 Model
 
 #### Level 1 - System Context Diagram
 
+This diagram shows the system's relationships with external entities, such as users, systems, and other external components. It provides a high-level view of how the system fits into its environment.
+
+<img src="./imgs/c4_model/level1.png" alt="Level 1" width="100%"/>
+
 #### Level 2 - System Container Diagram
+
+This diagram breaks down the system into its major containers, such as applications, services, databases, and microservices. It illustrates how these containers interact with each other and with external entities.
+
+<img src="./imgs/c4_model/level2.png" alt="Level 1" width="100%"/>
 
 #### Level 3 - Component Diagram
 
+This diagram zooms in on a specific container to show its internal components (classes, services, modules) and how they interact with each other. It provides a detailed view of a container's architecture.
+
+<img src="./imgs/c4_model/level3.png" alt="Level 1" width="100%"/>
+
 ### Testing
-
-## ...
-
-...
-
-./start.sh
 
 ## Development of services
 
