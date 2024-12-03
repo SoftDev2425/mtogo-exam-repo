@@ -20,9 +20,11 @@
     - [Auth Service](#auth-service)
     - [Restaurant Service](#restaurant-service)
     - [Order Service](#order-service)
+    - [Payment Service](#payment-service)
     - [Delivery Service](#delivery-service)
     - [Notification Service](#notification-service)
     - [Feedback Service](#feedback-service)
+    - [Dashboard Service](#dashboard-service)
     - [MTOGO Proto Provider](#mtogo-proto-provider)
     - [MTOGO Client](#mtogo-client)
   - [Technology Stack](#technology-stack)
@@ -59,41 +61,51 @@ list of microservices with explanation
 
 ### API Gateway
 
-Repository link
+Repository link https://github.com/SoftDev2425/mtogo-api-gateway
+express gateway
+rate limiting
+http-proxy
+auth middleware
 
 ### Auth Service
 
-Repository link
+Repository link https://github.com/SoftDev2425/mtogo-authservice
 
 ### Restaurant Service
 
-Repository link
+Repository link https://github.com/SoftDev2425/mtogo-restaurantservice
 
 ### Order Service
 
-Repository link
+Repository link https://github.com/SoftDev2425/mtogo-orderservice
+
+### Payment Service
+
+Repository link https://github.com/SoftDev2425/mtogo-paymentservice
 
 ### Delivery Service
 
-Repository link
+Repository link https://github.com/SoftDev2425/mtogo-deliveryservice
 
 ### Notification Service
 
-Repository link
+Repository link https://github.com/SoftDev2425/mtogo-notificationservice
 
 ### Feedback Service
 
-Repository link
+Repository link https://github.com/SoftDev2425/mtogo-feedbackservice
 
-...
+### Dashboard Service
+
+Repository link https://github.com/SoftDev2425/mtogo-dashboardservice
 
 ### MTOGO Proto Provider
 
-Repository link
+Repository link https://github.com/SoftDev2425/mtogo-proto-provider
 
 ### MTOGO Client
 
-Repository link
+Repository link https://github.com/SoftDev2425/mtogo-client
 påbegyndt...
 
 ## Technology Stack
