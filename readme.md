@@ -75,7 +75,7 @@ git clone https://github.com/SoftDev2425/mtogo-exam-repo.git
   - Sign up on [Stripe](https://stripe.com/). Go to Developers > API keys and copy the secret key. Paste it as `STRIPE_SECRET_KEY` in the `.env` file.
 
 - `Ethereal Email Credentials` - Email address for sending emails
-  - Sign up on [Ethereal Email](https://ethereal.email/). Copy the email and password and paste it in the `.env` file as `ETHEREAL_USER` and `ETHEREAL_PASSWORD`.
+  - Sign up on [Ethereal Email](https://ethereal.email/). Copy the email and password and paste it in the `.env` file as `ETHEREAL_USER` and `ETHEREAL_PASSWORD`. This will be used to send emails and get caught by Ethereal Email.
 
 4. Make sure you have Docker Desktop running. Now start the application by running the `start.sh` script:
 
@@ -110,7 +110,7 @@ express gateway
 rate limiting
 http-proxy
 auth middleware
-sanitize request 
+sanitize request
 
 ### Auth Service
 
