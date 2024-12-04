@@ -27,6 +27,8 @@
     - [Dashboard Service](#dashboard-service)
     - [MTOGO Proto Provider](#mtogo-proto-provider)
     - [MTOGO Client](#mtogo-client)
+    - [Other containers](#other-containers)
+      - [Kafka UI](#kafka-ui)
   - [Technology Stack](#technology-stack)
   - [Architecture \& Design](#architecture--design)
     - [Architecture diagram](#architecture-diagram)
@@ -136,6 +138,8 @@ Repository: <a href="https://github.com/SoftDev2425/mtogo-deliveryservice" targe
 
 Repository: <a href="https://github.com/SoftDev2425/mtogo-notificationservice" target="_blank">mtogo-notificationservice</a>
 
+<img src="./imgs/emails.png" alt="MTOGO Client" width="100%"/>
+
 ### Feedback Service
 
 Repository: <a href="https://github.com/SoftDev2425/mtogo-feedbackservice" target="_blank">mtogo-feedbackservice</a>
@@ -153,6 +157,11 @@ npm package for proto files for grpc
 
 Repository: <a href="https://github.com/SoftDev2425/mtogo-client" target="_blank">mtogo-client</a>
 SPA built with Vite React and TypeScript (available through docker at PORT XXXXXXXXXXX)
+
+### Other containers
+#### Kafka UI
+<img src="./imgs/kafka_ui.png" alt="Kafka UI" width="100%"/>
+
 
 ## Technology Stack
 
