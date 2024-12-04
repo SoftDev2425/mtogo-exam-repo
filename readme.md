@@ -296,10 +296,10 @@ building
 
 master.yml
 building docker images
-semantic release for versioning
-<img src="./imgs/ghcr.png.png" alt="Semantic Release" width="100%"/>
-<img src="./imgs/semantic_release.png" alt="Semantic Release" width="100%"/>
-<img src="./imgs/semantic_release2.png.png" alt="Semantic Release" width="100%"/>
+semantic release for versioning <br>
+<img src="./imgs/ghcr.png" alt="Semantic Release" width="60%"/>
+<img src="./imgs/semantic_release.png" alt="Semantic Release" width="60%"/>
+<img src="./imgs/semantic_release2.png" alt="Semantic Release" width="60%"/>
 
 ## Application Monitoring
 
