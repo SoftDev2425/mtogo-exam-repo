@@ -107,24 +107,26 @@ list of microservices with explanation
 ### API Gateway
 
 Repository: <a href="https://github.com/SoftDev2425/mtogo-api-gateway" target="_blank">mtogo-api-gateway</a>
-<br >
-express gateway
-rate limiting
-http-proxy
-auth middleware
-sanitize request
+
+The API Gateway acts as the entry point to the MTOGO system. It handles routing requests to appropriate microservices, rate limiting, and proxying HTTP requests. It also includes authentication middleware and sanitizes incoming requests for security and consistency.
 
 ### Auth Service
 
 Repository: <a href="https://github.com/SoftDev2425/mtogo-authservice" target="_blank">mtogo-authservice</a>
 
+Manages user (customers, restaurants, MTOGO management) authentication and authorization. Handles user registration, login/logout through cookie-based authentication to secure access to the system.
+
 ### Restaurant Service
 
 Repository: <a href="https://github.com/SoftDev2425/mtogo-restaurantservice" target="_blank">mtogo-restaurantservice</a>
 
+Allows restaurants to retrieve, create, update and delete their categories and menus within. (WIP: It also provides endpoints for restaurants to accept or reject orders, update order status, and manage their account details.) Also allows customers to view restaurant details, menus, and add items to their basket.
+
 ### Order Service
 
 Repository: <a href="https://github.com/SoftDev2425/mtogo-orderservice" target="_blank">mtogo-orderservice</a>
+
+Manages the order lifecycle, from creation to delivery. It allows customers to place orders. Internally this service communicates with the restaurant service to retrieve menu items and calculate the total order value. It also communicates with the payment service to process payments and the delivery service to assign delivery agents and track order status.
 
 ### Payment Service
 
@@ -151,7 +153,10 @@ Repository: <a href="https://github.com/SoftDev2425/mtogo-dashboardservice" targ
 ### MTOGO Proto Provider
 
 Repository: <a href="https://github.com/SoftDev2425/mtogo-proto-provider" target="_blank">mtogo-proto-provider</a>
-npm package for proto files for grpc
+
+A central repository for gRPC protocol buffer definitions shared across all microservices. Simplifies service-to-service communication. Pushed as an npm package and used as a dependency in each microservice.
+
+<img src="./imgs/mtogo-proto-provider-npm.png" alt="MTOGO Client" width="100%"/>
 
 ### MTOGO Client
 
@@ -159,9 +164,12 @@ Repository: <a href="https://github.com/SoftDev2425/mtogo-client" target="_blank
 SPA built with Vite React and TypeScript (available through docker at PORT XXXXXXXXXXX)
 
 ### Other containers
-#### Kafka UI
-<img src="./imgs/kafka_ui.png" alt="Kafka UI" width="100%"/>
 
+#### Kafka UI
+
+A web-based interface for managing and monitoring Kafka topics, consumers, and producers. Useful for debugging and visualizing event-driven workflows.
+
+<img src="./imgs/kafka_ui.png" alt="Kafka UI" width="100%"/>
 
 ## Technology Stack
 
