@@ -319,3 +319,5 @@ Looks for the latest image and updates the container if a new image is available
 REFORMULATE THIS
 
 FIX THE STRUCTURE OF THE DOCKER COMPOSE BEFORE INSERTING IMAGE
+
+<img src="./imgs/docker_containers.png" alt="Docker Containers" width="100%"/>
