@@ -126,11 +126,13 @@ Allows restaurants to retrieve, create, update and delete their categories and m
 
 Repository: <a href="https://github.com/SoftDev2425/mtogo-orderservice" target="_blank">mtogo-orderservice</a>
 
-Manages the order lifecycle, from creation to delivery. It allows customers to place orders. Internally this service communicates with the restaurant service to retrieve menu items and calculate the total order value. It also communicates with the payment service to process payments and the delivery service to assign delivery agents and track order status.
+Manages the order lifecycle, from creation to delivery. It allows customers to place orders. Internally this service communicates with the restaurant service to retrieve restaurant data, customer basket and calculate the total order value. It also communicates with the payment service to process payments and the delivery service to assign delivery agents. It also handles order status updates and notifications to customers (through the notification service).
 
 ### Payment Service
 
 Repository: <a href="https://github.com/SoftDev2425/mtogo-paymentservice" target="_blank">mtogo-paymentservice</a>
+
+Handles customer order payment procesing and payouts to restaurant and delivery agent.
 
 ### Delivery Service
 
@@ -146,9 +148,13 @@ Repository: <a href="https://github.com/SoftDev2425/mtogo-notificationservice" t
 
 Repository: <a href="https://github.com/SoftDev2425/mtogo-feedbackservice" target="_blank">mtogo-feedbackservice</a>
 
+Still a work in progess. Will collect customer feedback on orders, delivery experience, and food quality. Includes rating and review functionality. Also communicates with the payment service to calculate bonuses for delivery agents based on customer feedback. 
+
 ### Dashboard Service
 
 Repository: <a href="https://github.com/SoftDev2425/mtogo-dashboardservice" target="_blank">mtogo-dashboardservice</a>
+
+Still a work in progess. Will provide endpoints for a management dashboard for the management of the MTOGO platform. Visualizes data like active orders, delivery times, and customer reviews.
 
 ### MTOGO Proto Provider
 
