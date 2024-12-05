@@ -35,6 +35,12 @@
       - [Watchtower](#watchtower)
       - [Kafka UI](#kafka-ui)
   - [Technology Stack](#technology-stack)
+    - [Backend](#backend)
+    - [Frontend](#frontend)
+    - [Messaging](#messaging)
+    - [Testing](#testing)
+    - [API Documentation](#api-documentation)
+    - [CI/CD](#cicd)
   - [Architecture \& Design](#architecture--design)
     - [Architecture diagram](#architecture-diagram)
     - [BPMN diagram](#bpmn-diagram)
@@ -45,12 +51,12 @@
       - [Event Storming: Step 3 - Tracking Causes](#event-storming-step-3---tracking-causes)
       - [Event Storming: Step 4 - Finding aggregates and re-sorting them](#event-storming-step-4---finding-aggregates-and-re-sorting-them)
       - [Ubiquitous Language](#ubiquitous-language)
-      - [Bounded Contexts visualized in the Context Map](#bounded-contexts-visualized-in-the-context-map)
+      - [Bounded Contexts visualized in Context Map](#bounded-contexts-visualized-in-context-map)
     - [C4 Model](#c4-model)
       - [Level 1 - System Context Diagram](#level-1---system-context-diagram)
       - [Level 2 - System Container Diagram](#level-2---system-container-diagram)
       - [Level 3 - Component Diagram](#level-3---component-diagram)
-    - [Testing](#testing)
+    - [Testing](#testing-1)
   - [Development of services](#development-of-services)
   - [Continuous Integration / Continuous Deployment (CI/CD)](#continuous-integration--continuous-deployment-cicd)
   - [Application Monitoring](#application-monitoring)
@@ -205,38 +211,64 @@ A central repository for our gRPC protocol buffer definitions shared across micr
 ### MTOGO Client
 
 Repository: <a href="https://github.com/SoftDev2425/mtogo-client" target="_blank">mtogo-client</a>
-SPA built with Vite React and TypeScript (available through docker at PORT XXXXXXXXXXX)
+
+Still a work in progress. SPA built with Vite React and TypeScript using Tailwind CSS, React Query, Zod, Shadcn, and React Hook Form. The client will allow customers to view restaurants, menus, and place orders. It will also provide a dashboard for restaurants to manage their menus and orders, and a management interface for MTOGO to monitor order statistics, delivery performance, customer feedback, and restaurant activity.
 
 ### Other containers
 
 #### Watchtower
 
-SHORT DESCRIPTION
+Automatically updates containers when a new image is pushed to the GitHub Container Registry. Ensures the latest updates are deployed with minimal manual intervention.
+
 <img src="./imgs/watchtower.png" alt="Kafka UI" width="100%"/>
 
 #### Kafka UI
 
-A web-based interface for managing and monitoring Kafka topics, consumers, and producers. Useful for debugging and visualizing event-driven workflows.
+Provides a web interface to manage Kafka topics, consumers, and producers. Helps debug and visualize event-driven workflows.
 
 <img src="./imgs/kafka_ui.png" alt="Kafka UI" width="100%"/>
 
 ## Technology Stack
 
-- Backend:
-  - Most services: Node.js + TypeScript, Express, gRPC, Redis, PostgreSQL, Prisma ORM, express-gateway, express-http-proxy, Stripe, LocationIQ, Nodemailer, BullMQ, Docker, Winston for internal logging
-  - Order Service: Maven + Java, Spring Boot, JPA, Hibernate, PostgreSQL, Docker
-- Testing: Jest, Supertest, Postman
-- Messaging: Kafka, Zookeeper, KafkaJS
-- API Documentation: Postman
-- CI/CD: GitHub Actions, Docker, Semantic Release, GitHub Container Registry
-- Frontend: Vite React, Zod, Chakra UI, React Query, React Hook Form, Shadcn
+### Backend
 
-- Node.js + TypeScript
-- Maven ...
-- Express
-- Jest + Supertest
-- Postman
-- ...-.-.-
+- **Primary Services**: Built with Node.js and TypeScript
+  - Frameworks and Libraries: Express, gRPC, Prisma ORM
+  - Databases: PostgreSQL, Redis
+  - Other Integrations: Stripe, LocationIQ, Nodemailer, BullMQ (queue management)
+  - Logging: Winston for internal logging
+  - Gateway: express-http-proxy
+- **Maven and Java Services**: Dashboard Service, Feedback Service
+  - Frameworks and Libraries: Spring Boot, JPA, Hibernate
+  - Database: PostgreSQL
+
+### Frontend
+
+- Built with Vite, React, and TypeScript
+- Key Libraries: Zod, React Query, React Hook Form, Tailwind CSS, Shadcn
+
+### Messaging
+
+- Kafka and Zookeeper for asynchronous communication
+- KafkaJS for managing producers and consumers
+
+### Testing
+
+- **Node.js Services**: Jest, Supertest
+- **Java Services**: JUnit
+- API Testing: Postman, Swagger OpenAPI
+- Performance Testing: Artillery, JMeter
+
+### API Documentation
+
+- Swagger OpenAPI
+
+### CI/CD
+
+- GitHub Actions for automated workflows
+- Semantic Release for automated versioning and releases (based on commit messages and PR titles)
+- GitHub Container Registry for containerized deployments
+- Docker for service containerization
 
 ## Architecture & Design
 
@@ -256,10 +288,6 @@ A web-based interface for managing and monitoring Kafka topics, consumers, and p
 
 ### Domain Driven Design (DDD) models
 
-Starting with Event Storming, we can identify the domain events and aggregate roots. This will help us to create the domain models and the C4 model. Strategic and tactical DDD will be used to design the microservices.
-
-Strategic Design:
-
 #### Event Storming: Step 1 - Collecting Domain Events
 
 <img src="./imgs/event_storming/step1.png" alt="Event Storming: Step 1" width="100%"/>
@@ -278,43 +306,42 @@ Strategic Design:
 
 #### Ubiquitous Language
 
-- Customer: An individual who places orders on MTOGO. Customers may create accounts to store order history and personal preferences.
-- Restaurant: A food provider registered as a partner with MTOGO, offering a selection of dishes to customers through the platform.
-- Menu: A list of food items provided by a restaurant, available to customers for ordering on MTOGO.
-- Order: A transaction initiated by the customer to purchase food items from a restaurant through MTOGO.
-- Delivery Agent: An individual/courier contracted by MTOGO to pick up orders from restaurants and deliver them to customers. Delivery agents are compensated with bonuses based on performance.
-- Payment: The transaction where the customer pays for the order. MTOGO collects the payment, calculates fees, and distributes the remaining revenue to the restaurant.
-- Service Fee: A recurring flat rate fee paid by the restaurant to MTOGO for using the platform.
-- Variable Order Fee: A percentage fee based on the value of each order, deducted by MTOGO before paying the restaurant.
-- Bonus: A payment the delivery agents received based on order value, time of working (early or late), and customer reviews.
-- Feedback: An optional evaluation the customer can provide for the delivery experience, including a description and a rating from 1 to 5 stars, which may influence delivery agent bonuses.
-- Notification: A push notification, SMS, or email sent to the customer each time the order’s status is updated, from preparation to delivery. Notifications also cover delays or issues with the delivery.
-- Dashboard: An online management interface for MTOGO’s admin to monitor order statistics, delivery performance, customer feedback, and restaurant activity.
-- Basket: An online cart where the customer can place and modify pending orders before proceeding to payment. The items are saved temporarily until checkout.
-- MTOGO (Meal TO GO): A food delivery company, who operates the app, where customers can order food from restaurant’s menus.
+- **Customer**: An individual who places orders on MTOGO. Customers may create accounts to store order history and personal preferences.
+- **Restaurant**: A food provider registered as a partner with MTOGO, offering a selection of dishes to customers through the platform.
+- **Menu**: A list of food items provided by a restaurant, available to customers for ordering on MTOGO.
+- **Order**: A transaction initiated by the customer to purchase food items from a restaurant through MTOGO.
+- **Delivery Agent**: An individual/courier contracted by MTOGO to pick up orders from restaurants and deliver them to customers. Delivery agents are compensated with bonuses based on performance.
+- **Payment**: The transaction where the customer pays for the order. MTOGO collects the payment, calculates fees, and distributes the remaining revenue to the restaurant.
+- **Service Fee**: A recurring flat rate fee paid by the restaurant to MTOGO for using the platform. -** Variable Order Fee**: A percentage fee based on the value of each order, deducted by MTOGO before paying the restaurant.
+- **Bonus**: A payment the delivery agents received based on order value, time of working (early or late), and customer reviews.
+- **Feedback**: An optional evaluation the customer can provide for the delivery experience, including a description and a rating from 1 to 5 stars, which may influence delivery agent bonuses.
+- **Notification**: A push notification, SMS, or email sent to the customer each time the order’s status is updated, from preparation to delivery. Notifications also cover delays or issues with the delivery.
+- **Dashboard**: An online management interface for MTOGO’s admin to monitor order statistics, delivery performance, customer feedback, and restaurant activity.
+- **Basket**: An online cart where the customer can place and modify pending orders before proceeding to payment. The items are saved temporarily until checkout.
+- **MTOGO (Meal TO GO)**: A food delivery company, who operates the app, where customers can order food from restaurant’s menus.
 
 Key Actions and Events:
 
-- Register Restaurant: The action a restaurant takes to sign up on the MTOGO platform, becoming a partner and gaining access to customers.
-- Add Menu: The action a restaurant takes to upload or update its food items on the MTOGO platform, making them visible to customers.
-- Register Customer: The process by which a customer creates an account on the MTOGO platform to manage order history, preferences, and personal information.
-- Log In: The action taken by a customer to access their MTOGO account.
-- Place Order: The process by which a customer selects items from a restaurant's menu and submits a request to MTOGO. It is not necessary for the customer to be logged in, to place an order
-- Process Payment: The interaction with an external payment gateway to collect payment from the customer for an order. MTOGO holds the payment until fees are deducted, and the remainder is transferred to the restaurant.
-- Accept Order: The restaurant's action of confirming a customer's order, committing to prepare the items listed.
-- Reject Order: The action taken by a restaurant to decline an order, usually due to item unavailability or excess demand.
-- Prepare Order: The process the restaurant undertakes to cook and package food items for a placed order.
-- Assign Delivery Agent: MTOGOs action to find an available delivery agent for an accepted and prepared order.
-- Pick Up Order: The delivery agent's action of collecting the prepared order from the restaurant.
-- Notify Order Status: Updates sent by MTOGO to the customer regarding the orders progress, such as preparation, pickup, transit, delivery and any delays or issues encountered.
-- Deliver Order: The action taken by the delivery agent to hand over the order to the customer.
-- Request Feedback: MTOGOs action of sending a prompt to the customer after delivery, asking for a review of their experience.
-- Submit Feedback: The customer's response to the feedback request, including ratings and comments on the restaurant, food, and delivery experience.
-- Calculate Fees: The process by which MTOGO deducts a service fee and variable order fee from the orders total revenue before transferring the remainder to the restaurant.
-- Calculate and Pay Bonus: The process by which MTOGO calculates and distributes a bonus to the delivery agent, based on metrics such as order value and customer feedback.
-- Update Dashboard: The action of updating the MTOGO management interface.
+- **Register Restaurant**: The action a restaurant takes to sign up on the MTOGO platform, becoming a partner and gaining access to customers.
+- **Add Menu**: The action a restaurant takes to upload or update its food items on the MTOGO platform, making them visible to customers.
+- **Register Customer**: The process by which a customer creates an account on the MTOGO platform to manage order history, preferences, and personal information.
+- **Log In**: The action taken by a customer to access their MTOGO account.
+- **Place Order**: The process by which a customer selects items from a restaurant's menu and submits a request to MTOGO. It is not necessary for the customer to be logged in, to place an order
+- **Process Payment**: The interaction with an external payment gateway to collect payment from the customer for an order. MTOGO holds the payment until fees are deducted, and the remainder is transferred to the restaurant.
+- **Accept Order**: The restaurant's action of confirming a customer's order, committing to prepare the items listed.
+- **Reject Order**: The action taken by a restaurant to decline an order, usually due to item unavailability or excess demand.
+- **Prepare Order**: The process the restaurant undertakes to cook and package food items for a placed order.
+- **Assign Delivery Agent**: MTOGOs action to find an available delivery agent for an accepted and prepared order.
+- **Pick Up Order**: The delivery agent's action of collecting the prepared order from the restaurant.
+- **Notify Order Status**: Updates sent by MTOGO to the customer regarding the orders progress, such as preparation, pickup, transit, delivery and any delays or issues encountered.
+- **Deliver Order**: The action taken by the delivery agent to hand over the order to the customer.
+- **Request Feedback**: MTOGOs action of sending a prompt to the customer after delivery, asking for a review of their experience.
+- **Submit Feedback**: The customer's response to the feedback request, including ratings and comments on the restaurant, food, and delivery experience.
+- **Calculate Fees**: The process by which MTOGO deducts a service fee and variable order fee from the orders total revenue before transferring the remainder to the restaurant.
+- **Calculate and Pay Bonus**: The process by which MTOGO calculates and distributes a bonus to the delivery agent, based on metrics such as order value and customer feedback.
+- **Update Dashboard**: The action of updating the MTOGO management interface.
 
-#### Bounded Contexts visualized in the Context Map
+#### Bounded Contexts visualized in Context Map
 
 <img src="./imgs/context_map.png" alt="Context Map" width="100%"/>
 
@@ -340,7 +367,13 @@ This diagram zooms in on a specific container to show its internal components (c
 
 ### Testing
 
+Coming soon.
+
+- Test Strategy Design
+
 ## Development of services
+
+Coming soon.
 
 ```mermaid
 gitGraph
@@ -356,13 +389,19 @@ gitGraph
     commit
 ```
 
-pr.yml
-
-building
-
 ## Continuous Integration / Continuous Deployment (CI/CD)
 
-master.yml
+Coming soon.
+Description of workflows:
+
+- pr.yml
+- master.yml
+
+building, testing, liniting,
+containerization,
+sementatic release for versioning
+etc.
+
 building docker images
 semantic release for versioning <br>
 <img src="./imgs/ghcr.png" alt="Semantic Release" width="60%"/>
@@ -376,14 +415,14 @@ Promehteus + Grafana
 
 ## API Documentation (Swagger OpenAPI)
 
-When running the application in docker desktop, you can access the API documentation for each service by visiting the following URL: http://localhost:3000/api-docs
+When running the application in docker desktop, you can access the API documentation by visiting the following URL: http://localhost:3000/api-docs
 
 <img src="./imgs/swagger/1.png" alt="API Documentation" width="100%"/>
 <img src="./imgs/swagger/2.png" alt="API Documentation" width="100%"/>
 
 ## Docker
 
-These are the docker containers on the MTOGO platform. As a container orchestrator, we use docker compose. Our docker-compose.yml file can be found here [insert link here]
+These are the docker containers on the MTOGO platform. As a container orchestrator, we use docker compose. Our docker-compose.yml file can be found here [docker-compose.yml]("./docker-compose.yml")
 using watchtower to update containers automatically when a new image is pushed to the registry (GitHub Container Registry).
 Looks for the latest image and updates the container if a new image is available.
 
