@@ -186,41 +186,10 @@ Repository: <a href="https://github.com/SoftDev2425/mtogo-notificationservice" t
 
 Consumes events from Kafka and sends notifications (primarily emails, but capable of being extended to sms and in-app notifications as well) to customers, restaurants, and delivery agents. Notifications include order confirmations, order status updates, payment confirmations, (WIP: and feedback requests). The service uses Nodemailer to send emails that gets caught by Ethereal Email.
 
-<img src="./imgs/emails.png" alt="MTOGO Client" width="100%"/>
+<img src="./imgs/emails.png" alt="emails" width="100%"/>
 
-<div style="display: flex;">
+Check out all email types in the [emails.md](./emails.md) file.
 
-  <div>
-    <img src="./imgs/emails/order_confirmation.png" alt="Order Confirmation" style="width: 60%; border: 1px solid #ddd; border-radius: 8px;">
-    <p style="text-align: center; font-size: 14px; margin: 8px 0 0;">Order Confirmation</p>
-  </div>
-  
-  <div>
-    <img src="./imgs/emails/delivery_agent_assigned.png" alt="Delivery Agent Assigned" style="width: 60%; border: 1px solid #ddd; border-radius: 8px;">
-    <p style="text-align: center; font-size: 14px; margin: 8px 0 0;">Delivery Agent Assigned</p>
-  </div>
-  
-  <div>
-    <img src="./imgs/emails/customer_order_ontheway.png" alt="Customer Order On The Way" style="width: 60%; border: 1px solid #ddd; border-radius: 8px;">
-    <p style="text-align: center; font-size: 14px; margin: 8px 0 0;">Customer Order On The Way</p>
-  </div>
-  
-  <div>
-    <img src="./imgs/emails/customer_order_delivered.png" alt="Customer Order Delivered" style="width: 60%; border: 1px solid #ddd; border-radius: 8px;">
-    <p style="text-align: center; font-size: 14px; margin: 8px 0 0;">Customer Order Delivered</p>
-  </div>
-  
-  <div>
-    <img src="./imgs/emails/payment_confirmation_restaurant.png" alt="Payment Confirmation (Restaurant)" style="width: 60%; border: 1px solid #ddd; border-radius: 8px;">
-    <p style="text-align: center; font-size: 14px; margin: 8px 0 0;">Payment Confirmation (Restaurant)</p>
-  </div>
-  
-  <div>
-    <img src="./imgs/emails/payment_confirmation_delivery_agent.png" alt="Payment Confirmation (Delivery Agent)" style="width: 60%; border: 1px solid #ddd; border-radius: 8px;">
-    <p style="text-align: center; font-size: 14px; margin: 8px 0 0;">Payment Confirmation (Delivery Agent)</p>
-  </div>
-
-</div>
 
 ### Feedback Service
 
