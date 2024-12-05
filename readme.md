@@ -5,7 +5,7 @@
 ## Contributors
 
 - **Andreas Fritzøger** (cph-af167@cphbusiness.dk, [GitHub](https://github.com/Wolfgang1235))
-- **Owais Dashti** (cph-od42@cphusiness.dk, [GitHub](https://github.com/owaisad))
+- **Owais Dashti** (cph-od42@cphbusiness.dk, [GitHub](https://github.com/owaisad))
 
 ## Table of Contents
 
@@ -14,6 +14,10 @@
   - [Table of Contents](#table-of-contents)
   - [Setup project instructions](#setup-project-instructions)
   - [About](#about)
+    - [System Integration (SI)](#system-integration-si)
+    - [Software Quality (SQ)](#software-quality-sq)
+    - [Development of Large Systems (DLS)](#development-of-large-systems-dls)
+    - [Additional Details](#additional-details)
   - [Monolithic Legacy system](#monolithic-legacy-system)
   - [Microservices-based Modern System (+ repositories)](#microservices-based-modern-system--repositories)
     - [API Gateway](#api-gateway)
@@ -89,9 +93,38 @@ This will take a short moment to build the Docker images and start the container
 
 ## About
 
-About the project + description for each exam.....
+Meal To Go (MTOGO) is an advanced food delivery system designed to meet the needs of a modern, scalable, and integrated software solution for a food delivery business. The project was developed as part of the Software Development Bachelor’s Program and incorporates key learnings from the following three courses:
 
-Find out a lot more in the Design and Development Specification document: https://docs.google.com/document/d/1stTdq9irwSUa2SVfKwYDESG2IQfOmqh0mN3Dapf9Sgg/edit?tab=t.0#heading=h.8n6vuq48b6vg
+### System Integration (SI)
+
+Focuses on designing and implementing an integrated software system capable of combining legacy components with modern microservices. Techniques such as the Strangler Pattern, event-driven integration, and message brokering via Kafka were applied. The system integrates various independent services and ensures seamless communication through an API Gateway, promoting scalability and flexibility.
+
+### Software Quality (SQ)
+
+Emphasizes implementing robust testing, quality assurance practices, and secure coding principles. Tools like Jest and Supertest were used for unit and integration testing and Artillery for load testing, while CI/CD pipelines were established to automate testing and deployment. Additionally, static code analysis and taint analysis were applied to ensure security and maintain code quality.
+
+Emphasizes robust testing, quality assurance practices, and secure coding principles. The testing strategy was designed to ensure the MTOGO application handles growth from 300,000 to 1.5 million users and 3.6 million to 18 million orders over five years.
+**Highlights:**
+
+- Use of tools like Jest, Supertest, and Artillery for testing Node.js services, and JUnit and JMeter for Java services.
+- Code coverage reports to ensure a minimum of 70% coverage for all services (later increased to 80%).
+- Automated CI/CD workflows for continuous testing, code quality checks (static code analysis through ESLint), validating coding standards (Prettier) and seamless deployment.
+- Load testing critical components like the API Gateway and microservices to simulate high user demand.
+
+### Development of Large Systems (DLS)
+
+Focus on the use of Domain-Driven Design (DDD) to align technical development with business requirements. Key practices include Event Storming, creating a ubiquitous language, and defining bounded contexts. The system was designed using the C4 model, which provides a structured approach to visualizing software architecture. Also focus on creating a proper development way of working, including branching strategies, pull requests, and code reviews. pr.yml was used to automate the testing and building of the system. master.yml was used to automate the building of the docker images pushed to Github Container Registry ([check list of packages](https://github.com/orgs/SoftDev2425/packages)) and semantic release for versioning.
+
+Focuses on Domain-Driven Design (DDD) to align technical development with business requirements. Practices like Event Storming, creating a ubiquitous language, and defining bounded contexts guided the architecture.  
+**Highlights:**
+
+- Architectural visualization using the C4 Model for system context, containers, and components.
+- Implementation of branching strategies, pull requests, and automated workflows for efficient collaboration.
+- Transitioning to microservices using CI/CD pipelines for version control, testing, and Dockerized deployments.
+
+### Additional Details
+
+Read much more in the **Design and Development Specification document**: [Design and Development Specification](https://docs.google.com/document/d/1stTdq9irwSUa2SVfKwYDESG2IQfOmqh0mN3Dapf9Sgg/edit?tab=t.0#heading=h.8n6vuq48b6vg)
 
 ## Monolithic Legacy system
 
@@ -148,7 +181,7 @@ Repository: <a href="https://github.com/SoftDev2425/mtogo-notificationservice" t
 
 Repository: <a href="https://github.com/SoftDev2425/mtogo-feedbackservice" target="_blank">mtogo-feedbackservice</a>
 
-Still a work in progess. Will collect customer feedback on orders, delivery experience, and food quality. Includes rating and review functionality. Also communicates with the payment service to calculate bonuses for delivery agents based on customer feedback. 
+Still a work in progess. Will collect customer feedback on orders, delivery experience, and food quality. Includes rating and review functionality. Also communicates with the payment service to calculate bonuses for delivery agents based on customer feedback.
 
 ### Dashboard Service
 
