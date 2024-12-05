@@ -422,12 +422,6 @@ When running the application in docker desktop, you can access the API documenta
 
 ## Docker
 
-These are the docker containers on the MTOGO platform. As a container orchestrator, we use docker compose. Our docker-compose.yml file can be found here [docker-compose.yml]("./docker-compose.yml")
-using watchtower to update containers automatically when a new image is pushed to the registry (GitHub Container Registry).
-Looks for the latest image and updates the container if a new image is available.
-
-REFORMULATE THIS
-
-FIX THE STRUCTURE OF THE DOCKER COMPOSE BEFORE INSERTING IMAGE
+We currently utilize Docker Compose as the container orchestrator (we will into using Docker Swarm or K8), with configuration details available in the [docker-compose.yml](./docker-compose.yml) file. To ensure the containers remain up-to-date, we use Watchtower, which automatically updates containers whenever a new image is pushed to the GitHub Container Registry. Watchtower monitors for the latest image versions and seamlessly updates the containers if a new image is available.
 
 <img src="./imgs/docker_containers.png" alt="Docker Containers" width="100%"/>
