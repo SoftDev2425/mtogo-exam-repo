@@ -1,5 +1,5 @@
 services:
-  # zookeeper and kafka
+  # INFRASTRUCTURE
   zookeeper:
     container_name: zookeeper
     image: wurstmeister/zookeeper:latest
@@ -43,20 +43,7 @@ services:
       - app-network
 
   # DATABASES
-  postgres_db:
-    image: postgres:latest
-    container_name: postgres_db
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: mypassword
-      POSTGRES_DB: testservice
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_db_data:/var/lib/postgresql/data
-    networks:
-      - app-network
-
+  # Postgres
   pg_restaurant_service:
     image: postgres:latest
     container_name: pg_restaurant_service
@@ -113,6 +100,7 @@ services:
     networks:
       - app-network
 
+  # REDIS
   redis_auth_service:
     container_name: redis_auth_service
     image: redis:latest
@@ -139,7 +127,44 @@ services:
       timeout: 3s
       retries: 30
 
-  # SERVICES
+  # MICROSERVICES
+  api-gateway:
+    container_name: api-gateway
+    image: ghcr.io/softdev2425/mtogo-api-gateway:latest
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      AUTH_SERVICE_URL: http://auth-service:3001
+      RESTAURANT_SERVICE_URL: http://restaurant-service:3002
+      ORDER_SERVICE_URL: http://order-service:3003
+      DELIVERY_SERVICE_URL: http://delivery-service:3005
+      CLIENT_URL: http://localhost:5173
+    depends_on:
+      - order-service
+      - restaurant-service
+      - auth-service
+      - delivery-service
+    networks:
+      - app-network
+
+  auth-service:
+    container_name: auth-service
+    image: ghcr.io/softdev2425/mtogo-authservice:latest
+    ports:
+      - "3001:3001"
+    environment:
+      PORT: 3001
+      DATABASE_URL: postgresql://user:mypassword@pg_auth_service:5432/authservice?schema=public
+      LOCATION_IQ_API_KEY: ${LOCATION_IQ_API_KEY}
+      REDIS_URL: redis://redis_auth_service:6379
+    depends_on:
+      - pg_auth_service
+      - redis_auth_service
+      - kafka
+    networks:
+      - app-network
+
   restaurant-service:
     container_name: restaurant-service
     image: ghcr.io/softdev2425/mtogo-restaurantservice:latest
@@ -170,7 +195,7 @@ services:
       PAYMENT_SERVICE_URL: http://payment-service:3004
       REDIS_HOST: redis_order_service
       REDIS_PORT: 6379
-      DELIVERY_SERVICE_URL: http://delivery-service:3006
+      DELIVERY_SERVICE_URL: http://delivery-service:3005
     depends_on:
       - pg_order_service
       - redis_order_service
@@ -178,59 +203,6 @@ services:
     networks:
       - app-network
 
-  auth-service:
-    container_name: auth-service
-    image: ghcr.io/softdev2425/mtogo-authservice:latest
-    ports:
-      - "3001:3001"
-    environment:
-      PORT: 3001
-      DATABASE_URL: postgresql://user:mypassword@pg_auth_service:5432/authservice?schema=public
-      LOCATION_IQ_API_KEY: ${LOCATION_IQ_API_KEY}
-      REDIS_URL: redis://redis_auth_service:6379
-    depends_on:
-      - pg_auth_service
-      - redis_auth_service
-      - kafka
-    networks:
-      - app-network
-
-  # API GATEWAY
-  api-gateway:
-    container_name: api-gateway
-    image: ghcr.io/softdev2425/mtogo-api-gateway:latest
-    ports:
-      - "3000:3000"
-    environment:
-      PORT: 3000
-      AUTH_SERVICE_URL: http://auth-service:3001
-      RESTAURANT_SERVICE_URL: http://restaurant-service:3002
-      ORDER_SERVICE_URL: http://order-service:3003
-      DELIVERY_SERVICE_URL: http://delivery-service:3006
-      CLIENT_URL: http://localhost:5173
-    depends_on:
-      - order-service
-    networks:
-      - app-network
-
-  # DELIVERY SERVICE
-  delivery-service:
-    container_name: delivery-service
-    image: ghcr.io/softdev2425/mtogo-deliveryservice:latest
-    ports:
-      - "3006:3006"
-    environment:
-      PORT: 3006
-      DATABASE_URL: postgresql://user:mypassword@pg_delivery_service:5432/deliveryservice?schema=public
-      KAFKA_BROKER: kafka:9092
-      ORDER_SERVICE_URL: http://order-service:3003
-    depends_on:
-      - pg_order_service
-      - kafka
-    networks:
-      - app-network
-
-  # PAYMENT SERVICE
   payment-service:
     container_name: payment-service
     image: ghcr.io/softdev2425/mtogo-paymentservice:latest
@@ -246,13 +218,29 @@ services:
     networks:
       - app-network
 
-  notification-service:
-    container_name: notification-service
-    image: ghcr.io/softdev2425/mtogo-notificationservice:latest
+  delivery-service:
+    container_name: delivery-service
+    image: ghcr.io/softdev2425/mtogo-deliveryservice:latest
     ports:
       - "3005:3005"
     environment:
       PORT: 3005
+      DATABASE_URL: postgresql://user:mypassword@pg_delivery_service:5432/deliveryservice?schema=public
+      KAFKA_BROKER: kafka:9092
+      ORDER_SERVICE_URL: http://order-service:3003
+    depends_on:
+      - pg_order_service
+      - kafka
+    networks:
+      - app-network
+
+  notification-service:
+    container_name: notification-service
+    image: ghcr.io/softdev2425/mtogo-notificationservice:latest
+    ports:
+      - "3006:3006"
+    environment:
+      PORT: 3006
       KAFKA_BROKER: kafka:9092
       AUTH_SERVICE_URL: http://auth-service:3001
       EMAIL_USER: ${EMAIL_USER}
@@ -265,6 +253,9 @@ services:
     networks:
       - app-network
 
+  # WIP: FEEDBACK SERVICE
+  # WIP: DASHBOARD SERVICE
+
   client:
     container_name: client
     image: ghcr.io/softdev2425/mtogo-client:latest
@@ -275,6 +266,7 @@ services:
     networks:
       - app-network
 
+  # WATCHTOWER - AUTO UPDATE CONTAINERS
   watchtower:
     container_name: watchtower
     image: containrrr/watchtower:latest
@@ -285,7 +277,6 @@ services:
       - app-network
 
 volumes:
-  postgres_db_data:
   postgres_restaurant_data:
   postgres_auth_data:
   postgres_order_data:
