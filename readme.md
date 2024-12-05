@@ -32,6 +32,7 @@
     - [MTOGO Proto Provider](#mtogo-proto-provider)
     - [MTOGO Client](#mtogo-client)
     - [Other containers](#other-containers)
+      - [Watchtower](#watchtower)
       - [Kafka UI](#kafka-ui)
   - [Technology Stack](#technology-stack)
   - [Architecture \& Design](#architecture--design)
@@ -53,7 +54,7 @@
   - [Development of services](#development-of-services)
   - [Continuous Integration / Continuous Deployment (CI/CD)](#continuous-integration--continuous-deployment-cicd)
   - [Application Monitoring](#application-monitoring)
-  - [Postman API Documentation](#postman-api-documentation)
+  - [API Documentation (Swagger OpenAPI)](#api-documentation-swagger-openapi)
   - [Docker](#docker)
 
 ## Setup project instructions
@@ -62,6 +63,7 @@
 
 ```bash
 git clone https://github.com/SoftDev2425/mtogo-exam-repo.git
+cd mtogo-exam-repo
 ```
 
 2. Create a `.env` file by copying the `.env.template` file:
@@ -80,16 +82,26 @@ git clone https://github.com/SoftDev2425/mtogo-exam-repo.git
 
   - Sign up on [Stripe](https://stripe.com/). Go to Developers > API keys and copy the secret key. Paste it as `STRIPE_SECRET_KEY` in the `.env` file.
 
-- `Ethereal Email Credentials` - Email address for sending emails
-  - Sign up on [Ethereal Email](https://ethereal.email/). Copy the email and password and paste it in the `.env` file as `ETHEREAL_USER` and `ETHEREAL_PASSWORD`. This will be used to send emails and get caught by Ethereal Email.
+- `Ethereal Email Credentials` - Email credentials for sending emails
+  - Sign up on [Ethereal Email](https://ethereal.email/). Copy the email and password and paste it in the `.env` file as `EMAIL_USER` and `EMAIL_PASSWORD`. This will be used to send emails and get caught by Ethereal Email.
+    ```
+    EMAIL_USER=<your-ethereal-email>
+    EMAIL_PASSWORD=<your-ethereal-password>
+    ```
 
-4. Make sure you have Docker Desktop running. Now start the application by running the `start.sh` script:
+4. Ensure Docker Desktop is running. Start the application by executing the following script:
 
 ```bash
 ./start.sh
 ```
+This script will:
 
-This will take a short moment to build the Docker images and start the containers. Once the containers are up and running, you can access the application at `http://localhost:3000` (API Gateway). Use Postman collection to test the endpoints.
+- Pull necessary Docker images.
+- Build and start the containers.
+
+Once the containers are up and running, you can access the application at `http://localhost:3000` (API Gateway). 
+
+Use Swagger to explore the API documentation at `http://localhost:3000/api-docs`.
 
 ## About
 
@@ -203,6 +215,11 @@ Repository: <a href="https://github.com/SoftDev2425/mtogo-client" target="_blank
 SPA built with Vite React and TypeScript (available through docker at PORT XXXXXXXXXXX)
 
 ### Other containers
+
+#### Watchtower
+
+SHORT DESCRIPTION
+<img src="./imgs/watchtower.png" alt="Kafka UI" width="100%"/>
 
 #### Kafka UI
 
@@ -362,9 +379,12 @@ semantic release for versioning <br>
 Coming soon:
 Promehteus + Grafana
 
-## Postman API Documentation
+## API Documentation (Swagger OpenAPI)
 
-INSERT POSTMAN COLLECTION HERE + IMAGES
+When running the application in docker desktop, you can access the API documentation for each service by visiting the following URL: http://localhost:3000/api-docs
+
+<img src="./imgs/swagger/1.png" alt="API Documentation" width="100%"/>
+<img src="./imgs/swagger/2.png" alt="API Documentation" width="100%"/>
 
 ## Docker
 
