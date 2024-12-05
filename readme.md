@@ -190,7 +190,6 @@ Consumes events from Kafka and sends notifications (primarily emails, but capabl
 
 Check out all email types in the [emails.md](./emails.md) file.
 
-
 ### Feedback Service
 
 Repository: <a href="https://github.com/SoftDev2425/mtogo-feedbackservice" target="_blank">mtogo-feedbackservice</a>
@@ -425,6 +424,6 @@ When running the application in docker desktop, you can access the API documenta
 
 ## Docker
 
-We currently utilize Docker Compose as the container orchestrator (we will into using Docker Swarm or K8), with configuration details available in the [docker-compose.yml](./docker-compose.yml) file. To ensure the containers remain up-to-date, we use Watchtower, which automatically updates containers whenever a new image is pushed to the GitHub Container Registry. Watchtower monitors for the latest image versions and seamlessly updates the containers if a new image is available.
+We currently utilize Docker Compose as the container orchestrator (we will move over to using Docker Swarm or K8), with configuration details available in the [docker-compose.yml](./docker-compose.yml) file. To ensure the containers remain up-to-date, we use Watchtower, which automatically updates containers whenever a new image is pushed to the GitHub Container Registry. Watchtower monitors for the latest image versions and seamlessly updates the containers if a new image is available.
 
 <img src="./imgs/docker_containers.png" alt="Docker Containers" width="100%"/>
