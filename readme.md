@@ -94,12 +94,13 @@ cd mtogo-exam-repo
 ```bash
 ./start.sh
 ```
+
 This script will:
 
 - Pull necessary Docker images.
 - Build and start the containers.
 
-Once the containers are up and running, you can access the application at `http://localhost:3000` (API Gateway). 
+Once the containers are up and running, you can access the application at `http://localhost:3000` (API Gateway).
 
 Use Swagger to explore the API documentation at `http://localhost:3000/api-docs`.
 
@@ -109,30 +110,15 @@ Meal To Go (MTOGO) is an advanced food delivery system designed to meet the need
 
 ### System Integration (SI)
 
-Focuses on designing and implementing an integrated software system capable of combining legacy components with modern microservices. Techniques such as the Strangler Pattern, event-driven integration, and message brokering via Kafka were applied. The system integrates various independent services and ensures seamless communication through an API Gateway, promoting scalability and flexibility.
+Focuses on designing and implementing an integrated software system capable of combining legacy components with modern microservices. Techniques such as the Strangler Pattern, event-driven integration, remote procedure calls and message brokering via Kafka were applied. The system integrates various independent services and ensures seamless communication through an API Gateway, promoting scalability and flexibility.
 
 ### Software Quality (SQ)
 
-Emphasizes implementing robust testing, quality assurance practices, and secure coding principles. Tools like Jest and Supertest were used for unit and integration testing and Artillery for load testing, while CI/CD pipelines were established to automate testing and deployment. Additionally, static code analysis and taint analysis were applied to ensure security and maintain code quality.
-
-Emphasizes robust testing, quality assurance practices, and secure coding principles. The testing strategy was designed to ensure the MTOGO application handles growth from 300,000 to 1.5 million users and 3.6 million to 18 million orders over five years.
-**Highlights:**
-
-- Use of tools like Jest, Supertest, and Artillery for testing Node.js services, and JUnit and JMeter for Java services.
-- Code coverage reports to ensure a minimum of 70% coverage for all services (later increased to 80%).
-- Automated CI/CD workflows for continuous testing, code quality checks (static code analysis through ESLint), validating coding standards (Prettier) and seamless deployment.
-- Load testing critical components like the API Gateway and microservices to simulate high user demand.
+Emphasizes robust testing, quality assurance practices, and secure coding principles. The testing strategy was designed to ensure the MTOGO application handles growth from 300,000 to 1.5 million users and 3.6 million to 18 million orders over five years. Use of tools like Jest, Supertest, and Artillery for testing Node.js services, and JUnit and JMeter for Java services. Code coverage reports to ensure a minimum of 70% coverage for all services (later increased to 80%). Automated CI/CD workflows for continuous testing, code quality checks (static code analysis through ESLint), validating coding standards (Prettier) and seamless deployment. Load testing critical components like the API Gateway and microservices to simulate high user demand.
 
 ### Development of Large Systems (DLS)
 
-Focus on the use of Domain-Driven Design (DDD) to align technical development with business requirements. Key practices include Event Storming, creating a ubiquitous language, and defining bounded contexts. The system was designed using the C4 model, which provides a structured approach to visualizing software architecture. Also focus on creating a proper development way of working, including branching strategies, pull requests, and code reviews. pr.yml was used to automate the testing and building of the system. master.yml was used to automate the building of the docker images pushed to Github Container Registry ([check list of packages](https://github.com/orgs/SoftDev2425/packages)) and semantic release for versioning.
-
-Focuses on Domain-Driven Design (DDD) to align technical development with business requirements. Practices like Event Storming, creating a ubiquitous language, and defining bounded contexts guided the architecture.  
-**Highlights:**
-
-- Architectural visualization using the C4 Model for system context, containers, and components.
-- Implementation of branching strategies, pull requests, and automated workflows for efficient collaboration.
-- Transitioning to microservices using CI/CD pipelines for version control, testing, and Dockerized deployments.
+Focuses on Domain-Driven Design (DDD) to align technical development with business requirements. Practices like Event Storming, creating a ubiquitous language, and defining bounded contexts guided the architecture.Architectural visualization using the C4 Model for system context, containers, and components. Implementation of branching strategies, pull requests, and automated workflows for efficient collaboration. `pr.yml` for building and testing pull requests, `master.yml` for building and deploying to production. Semantic Release for versioning and changelog generation. Docker for containerization and orchestration. API documentation using Swagger OpenAPI.
 
 ### Additional Details
 
@@ -143,29 +129,32 @@ Read much more in the **Design and Development Specification document**: [Design
 strangler pattern
 Repository: https://github.com/SoftDev2425/mtogo-legacy
 
+As part of the Systems Integration exam, we were tasked with demonstrating the transition from a monolithic legacy system to a microservices-based architecture. To achieve this, we applied the Strangler Pattern, which involves incrementally replacing parts of the monolith with microservices while preserving the existing system's functionality. This approach allows for a gradual, low-risk migration that avoids disruptions in service and ensures the new architecture can be tested and integrated step-by-step. The Strangler Pattern is an effective strategy because it enables iterative development, minimizes potential downtime, and allows the team to manage change more smoothly.
+
+Our original monolithic system was represented in the [legacy repository](https://github.com/SoftDev2425/mtogo-legacy), which showcased the foundational domains and business logic that would be modularized in the new architecture. The <a href="#domain_model">domain model</a> highlights the domains we initially mapped out in the monolithic version, serving as the basis for identifying and building out the microservices later on.
+
 ## Microservices-based Modern System (+ repositories)
 
 <img src="./imgs/arc_diagram.png" alt="Microservices" width="100%"/>
-
-list of microservices with explanation
 
 ### API Gateway
 
 Repository: <a href="https://github.com/SoftDev2425/mtogo-api-gateway" target="_blank">mtogo-api-gateway</a>
 
-The API Gateway acts as the entry point to the MTOGO system. It handles routing requests to appropriate microservices, rate limiting, and proxying HTTP requests. It also includes authentication middleware and sanitizes incoming requests for security and consistency.
+The API Gateway acts as the main entry point to the MTOGO system. It handles validating sessions, routing requests to appropriate microservices, rate limiting, and proxying HTTP requests. It also includes authentication middleware and sanitizes incoming requests for security and consistency. The API Gateway is built with Node.js, Express, and TypeScript, and uses express-http-proxy for reverse proxy and routing to the appropriate microservices.
 
 ### Auth Service
 
 Repository: <a href="https://github.com/SoftDev2425/mtogo-authservice" target="_blank">mtogo-authservice</a>
 
-Manages user (customers, restaurants, MTOGO management) authentication and authorization. Handles user registration, login/logout through cookie-based authentication to secure access to the system.
+Manages users (customers, restaurants, MTOGO management) authentication and authorization. Handles user registration (storing their information), login/logout through cookie-based authentication to secure access to the system.
 
 ### Restaurant Service
 
 Repository: <a href="https://github.com/SoftDev2425/mtogo-restaurantservice" target="_blank">mtogo-restaurantservice</a>
 
-Allows restaurants to retrieve, create, update and delete their categories and menus within. (WIP: It also provides endpoints for restaurants to accept or reject orders, update order status, and manage their account details.) Also allows customers to view restaurant details, menus, and add items to their basket.
+Allows restaurants to retrieve, create, update and delete their categories and menus within.
+(WIP: It also provides endpoints for restaurants to accept or reject orders, update order status, and manage their account details.) Also allows customers to view restaurant details including their categories and menus, and add menus to their basket. This customer basket is created for each customer and restaurant combination, and is used to calculate the total order value and process the order.
 
 ### Order Service
 
@@ -177,15 +166,19 @@ Manages the order lifecycle, from creation to delivery. It allows customers to p
 
 Repository: <a href="https://github.com/SoftDev2425/mtogo-paymentservice" target="_blank">mtogo-paymentservice</a>
 
-Handles customer order payment procesing and payouts to restaurant and delivery agent.
+Handles customer order payment procesing and payouts to restaurant and delivery agent through Stripe. It calculates the service fee and variable order fee, deducts them from the order total, and transfers the remaining revenue to the restaurant. This service also communicates with the notification service to send payment confirmation emails to customers, restaurants and delivery agents.
 
 ### Delivery Service
 
 Repository: <a href="https://github.com/SoftDev2425/mtogo-deliveryservice" target="_blank">mtogo-deliveryservice</a>
 
+Handles assigning a delivery agent to an order. Produces notification event to notify the delivery agent of the order. (WIP: Handles updating the order status to "picked up" and "delivered". Currently simulated.)
+
 ### Notification Service
 
 Repository: <a href="https://github.com/SoftDev2425/mtogo-notificationservice" target="_blank">mtogo-notificationservice</a>
+
+Consumes events from Kafka and sends notifications (primarily emails, but capable of being extended to sms and in-app notifications as well) to customers, restaurants, and delivery agents. Notifications include order confirmations, order status updates, payment confirmations, (WIP: and feedback requests). The service uses Nodemailer to send emails that gets caught by Ethereal Email.
 
 <img src="./imgs/emails.png" alt="MTOGO Client" width="100%"/>
 
@@ -193,21 +186,21 @@ Repository: <a href="https://github.com/SoftDev2425/mtogo-notificationservice" t
 
 Repository: <a href="https://github.com/SoftDev2425/mtogo-feedbackservice" target="_blank">mtogo-feedbackservice</a>
 
-Still a work in progess. Will collect customer feedback on orders, delivery experience, and food quality. Includes rating and review functionality. Also communicates with the payment service to calculate bonuses for delivery agents based on customer feedback.
+Still a work in progess. Will collect customer feedback on orders. Includes rating and review functionality. Also communicates with the payment service to calculate bonuses for delivery agents based on customer feedback.
 
 ### Dashboard Service
 
 Repository: <a href="https://github.com/SoftDev2425/mtogo-dashboardservice" target="_blank">mtogo-dashboardservice</a>
 
-Still a work in progess. Will provide endpoints for a management dashboard for the management of the MTOGO platform. Visualizes data like active orders, delivery times, and customer reviews.
+Still a work in progess. Will provide endpoints for a dashboard for MTOGOs management. Visualizes data like active orders, delivery times, and customer reviews.
 
 ### MTOGO Proto Provider
 
 Repository: <a href="https://github.com/SoftDev2425/mtogo-proto-provider" target="_blank">mtogo-proto-provider</a>
 
-A central repository for gRPC protocol buffer definitions shared across all microservices. Simplifies service-to-service communication. Pushed as an npm package and used as a dependency in each microservice.
+A central repository for our gRPC protocol buffer definitions shared across microservices that requires it. Enhances service-to-service communication by serializing the data, which makes the communication much faster. Pushed as an [npm package](https://www.npmjs.com/package/mtogo-proto-provider) and used as a dependency.
 
-<img src="./imgs/mtogo-proto-provider-npm.png" alt="MTOGO Client" width="100%"/>
+<img src="./imgs/mtogo-proto-provider-npm.png" alt="MTOGO proto provider" width="100%"/>
 
 ### MTOGO Client
 
@@ -253,11 +246,13 @@ A web-based interface for managing and monitoring Kafka topics, consumers, and p
 
 ### BPMN diagram
 
-<img src="./imgs/customer-create-order-flow-bpmn.png" target="_blank" alt="BPM" width="100%"/>
+<img src="./imgs/customer-create-order-flow-bpmn.png" target="_blank" alt="BPMN" width="100%"/>
 
 ### Domain model
 
-<img src="./imgs/domain_model.png" target="_blank" alt="BPM" width="100%"/>
+<div id="domain_model">
+  <img id="domain_model" src="./imgs/domain_model.png" target="_blank" alt="Domain Model" width="100%"/>
+</div>
 
 ### Domain Driven Design (DDD) models
 
