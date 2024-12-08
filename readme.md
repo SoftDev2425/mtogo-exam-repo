@@ -132,7 +132,6 @@ Read much more in the **Design and Development Specification document**: [Design
 
 ## Monolithic Legacy system
 
-strangler pattern
 Repository: https://github.com/SoftDev2425/mtogo-legacy
 
 As part of the Systems Integration exam, we were tasked with demonstrating the transition from a monolithic legacy system to a microservices-based architecture. To achieve this, we applied the Strangler Pattern, which involves incrementally replacing parts of the monolith with microservices while preserving the existing system's functionality. This approach allows for a gradual, low-risk migration that avoids disruptions in service and ensures the new architecture can be tested and integrated step-by-step. The Strangler Pattern is an effective strategy because it enables iterative development, minimizes potential downtime, and allows the team to manage change more smoothly.
