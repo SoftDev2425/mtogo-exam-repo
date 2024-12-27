@@ -376,6 +376,7 @@ Coming soon.
 #### Load Testing (Artillery)
 
 <img src="./imgs/load_testing.png" alt="load testing" width="100%"/>
+Note: this is run on a local machine, so the results are not representative of a production environment.
 
 ## Development of services
 
