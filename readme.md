@@ -57,7 +57,7 @@
       - [Level 2 - System Container Diagram](#level-2---system-container-diagram)
       - [Level 3 - Component Diagram](#level-3---component-diagram)
     - [Testing](#testing-1)
-      - [Load Testing](#load-testing)
+      - [Load Testing (Artillery)](#load-testing-artillery)
   - [Development of services](#development-of-services)
   - [Continuous Integration / Continuous Deployment (CI/CD)](#continuous-integration--continuous-deployment-cicd)
   - [Application Monitoring](#application-monitoring)
@@ -373,12 +373,9 @@ Coming soon.
 
 - Test Strategy Design
 
+#### Load Testing (Artillery)
 
-#### Load Testing
 <img src="./imgs/load_testing.png" alt="load testing" width="100%"/>
-
-
-
 
 ## Development of services
 
