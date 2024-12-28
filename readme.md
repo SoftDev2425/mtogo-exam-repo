@@ -61,6 +61,8 @@
   - [Development of services](#development-of-services)
   - [Continuous Integration / Continuous Deployment (CI/CD)](#continuous-integration--continuous-deployment-cicd)
   - [Application Monitoring](#application-monitoring)
+    - [Promehteus](#promehteus)
+    - [Grafana](#grafana)
   - [API Documentation (Swagger OpenAPI)](#api-documentation-swagger-openapi)
   - [Docker](#docker)
 
@@ -416,8 +418,9 @@ semantic release for versioning <br>
 
 ## Application Monitoring
 
-Coming soon:
-Promehteus + Grafana
+### Promehteus
+
+### Grafana
 
 ## API Documentation (Swagger OpenAPI)
 
