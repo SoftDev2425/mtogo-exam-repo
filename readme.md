@@ -369,9 +369,7 @@ This diagram zooms in on a specific container to show its internal components (c
 
 ### Testing
 
-Coming soon.
-
-- Test Strategy Design
+- [Link to our Test Strategy Design](https://docs.google.com/document/d/1Ep9nVfXBfQKGTim9ny6OBEa4GZ442zhdxdxCx-OJqoU)
 
 #### Load Testing (Artillery)
 
