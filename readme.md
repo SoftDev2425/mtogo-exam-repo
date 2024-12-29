@@ -33,6 +33,7 @@
     - [MTOGO Client](#mtogo-client)
     - [Other containers](#other-containers)
       - [Watchtower](#watchtower)
+  - [Service Level Agreements (SLA)](#service-level-agreements-sla)
       - [Kafka UI](#kafka-ui)
   - [Technology Stack](#technology-stack)
     - [Backend](#backend)
@@ -61,8 +62,9 @@
   - [Development of services](#development-of-services)
   - [Continuous Integration / Continuous Deployment (CI/CD)](#continuous-integration--continuous-deployment-cicd)
   - [Application Monitoring](#application-monitoring)
-    - [Promehteus](#promehteus)
+    - [Prometheus](#prometheus)
     - [Grafana](#grafana)
+  - [Logging](#logging)
   - [API Documentation (Swagger OpenAPI)](#api-documentation-swagger-openapi)
   - [Docker](#docker)
 
@@ -225,6 +227,10 @@ Still a work in progress. SPA built with Vite React and TypeScript using Tailwin
 Automatically updates containers when a new image is pushed to the GitHub Container Registry. Ensures the latest updates are deployed with minimal manual intervention.
 
 <img src="./imgs/watchtower.png" alt="Kafka UI" width="100%"/>
+
+## Service Level Agreements (SLA)
+
+- [Link to our SLA](https://docs.google.com/document/d/191HaMpwlcmnEwmvapizEzj0rj45QSi-fwMg7KnqpUVs/edit?usp=sharing)
 
 #### Kafka UI
 
@@ -418,13 +424,47 @@ semantic release for versioning <br>
 
 ## Application Monitoring
 
-### Promehteus
+### Prometheus
 
-<img src="./imgs/prometheus_targets.png" alt="prometheus targets" />
+We use [Prometheus](https://prometheus.io/) to collect and monitor application metrics across all microservices. Each service exposes a `/metrics` endpoint, providing various metrics such as HTTP request counts, request durations, CPU usage, memory usage, and system load averages. These metrics are collected (<a href="https://github.com/SoftDev2425/mtogo-authservice/blob/master/src/utils/server.ts" target="_blank">see code example</a>) using counters and gauges. Prometheus scrapes these metrics from the `/metrics` endpoint of each service. The Prometheus server is configured to scrape our services every 15 seconds, as defined in our [prometheus.yml](./prometheus/prometheus.yml), where we specify the list of microservices and their respective ports.
+
+The screenshot below shows the Prometheus targets in the Prometheus dashboard, for the services running and how often they are scraped.
+
+<img src="./imgs/prometheus_targets.png" alt="prometheus targets" width="100%" />
 
 ### Grafana
 
-<img src="./imgs/grafana_monitoring.png" alt="grafana" />
+We use [Grafana](https://grafana.com/) to visualize the metrics collected by Prometheus. Dashboards in Grafana display key metrics such as CPU usage, memory usage, and HTTP response data for each microservice. These visualizations help in monitoring system performance and health, offering valuable insights to detect potential issues across different services.
+
+The screenshot below shows the Grafana dashboard for monitoring the microservices, displaying key metrics such as CPU usage, memory usage, and HTTP response data for each service, using gauges, bar charts and a time serie.
+
+<img src="./imgs/grafana_monitoring.png" alt="grafana" width="100%" />
+
+## Logging
+
+In our microservices, logging is implemented with <a href="https://github.com/winstonjs/winston" target="_blank">Winston</a> (<a href="https://github.com/SoftDev2425/mtogo-authservice/blob/master/src/utils/logger.ts" target="_blank">code</a>) to provide traceability, debugging insights, and error analysis. Each incoming request is assigned a unique correlationId, <a href="https://github.com/SoftDev2425/mtogo-authservice/blob/master/src/middlewares/attachCorrelationId.ts" target_blank>through a `attachCorrelationId` middleware</a>, that is propagated throughout the system, allowing for efficient tracking of requests and responses across services. The <a href="https://github.com/SoftDev2425/mtogo-authservice/blob/master/src/middlewares/loggerMiddleware.ts" target="_blank">`logRequestDetails`</a> middleware logs crucial details for each request, including the HTTP method, URL, IP address, user-agent, and the query and params data, along with the correlationId. Logs are stored in monthly and daily files (e.g., _`logs/2024-12/28.log`_), allowing for easy organization and access. Each log entry includes a timestamp, log level (INFO, WARN, ERROR), and relevant metadata for deeper analysis. For example, a typical log entry might look like this:
+
+```json
+2024-12-28 12:45:42
+[INFO]: Incoming Request
+{
+  "correlationId": "d16a9cee-0d30-48e3-a49d-d8b987352421",
+  "method": "POST",
+  "url": "/api/auth/login/customer",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+  "query": {},
+  "params": {}
+}
+```
+
+Logs are generated at various levels (INFO, WARN, ERROR) depending on the event's severity. For instance, warnings such as invalid credentials can be logged like so:
+
+```typescript
+logger.warn("Invalid credentials", { correlationId, email });
+```
+
+This approach ensures clear traceability across the system, making it easier to debug and monitor application behavior in our microservices architecture.
 
 ## API Documentation (Swagger OpenAPI)
 
