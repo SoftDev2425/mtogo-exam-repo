@@ -420,6 +420,8 @@ semantic release for versioning <br>
 
 ### Promehteus
 
+<img src="./imgs/prometheus_targets.png" alt="prometheus targets" width="60%"/>
+
 ### Grafana
 
 ## API Documentation (Swagger OpenAPI)
