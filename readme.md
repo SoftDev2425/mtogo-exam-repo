@@ -424,6 +424,8 @@ semantic release for versioning <br>
 
 ### Grafana
 
+<img src="./imgs/grafana_monitoring.png" alt="grafana" width="60%"/>
+
 ## API Documentation (Swagger OpenAPI)
 
 When running the application in docker desktop, you can access the API documentation by visiting the following URL: http://localhost:3000/api-docs
