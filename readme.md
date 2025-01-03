@@ -125,7 +125,7 @@ Focuses on designing and implementing an integrated software system capable of c
 
 ### Software Quality (SQ)
 
-Emphasizes robust testing, quality assurance practices, and secure coding principles. The testing strategy was designed to ensure the MTOGO application handles growth from 300,000 to 1.5 million users and 3.6 million to 18 million orders over five years. Use of tools like Jest, Supertest, and Artillery for testing Node.js services, and JUnit and JMeter for Java services. Code coverage reports to ensure a minimum of 70% coverage for all services (later increased to 80%). Automated CI/CD workflows for continuous testing, code quality checks (static code analysis through ESLint), validating coding standards (Prettier) and seamless deployment. Load testing critical components like the API Gateway and microservices to simulate high user demand.
+Emphasizes robust testing, quality assurance practices, and secure coding principles. The testing strategy was designed to ensure the MTOGO application handles growth from 300,000 to 1.5 million users and 3.6 million to 18 million orders over five years. Use of tools like Jest, Supertest, and Artillery for testing Node.js services, and JUnit and JMeter for Java services. Code coverage reports to ensure a minimum of 65% coverage for all services (later increased to 80%). Automated CI/CD workflows for continuous testing, code quality checks (static code analysis through ESLint), validating coding standards (Prettier) and seamless deployment. Load testing critical components like the API Gateway and microservices to simulate high user demand.
 
 ### Development of Large Systems (DLS)
 
